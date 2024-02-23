@@ -1,0 +1,23 @@
+<div class="aside">
+    <div>
+        <div>Workspace Management</div>
+        <div>
+            <button>Create Workspace</button>
+            <button>Remove Workspace</button>
+            <button>Destroy Workspace</button>
+            <button>Render Workspace</button>
+        </div>
+    </div>
+    <div>
+        <div>Events</div>
+        <select [(ngModel)]="event">
+            <option value="" disabled>-Choose event-</option>
+            <option *ngFor="let event of events" [value]="event">
+                {{ event }}
+        </select>
+        <button>Subscribe</button>
+        <button>Unsubscribe</button>
+        <div>Event Result</div>
+        <textarea class="event-response" disabled [value]="eventResponse"></textarea>
+    </div>
+</div>

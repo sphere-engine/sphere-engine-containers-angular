@@ -1,0 +1,12 @@
+.main {
+    display: flex;
+    height: 100vh;
+}
+
+app-workspace {
+    flex: 2; 
+  }
+
+  app-aside {
+    flex: 1; 
+  }
