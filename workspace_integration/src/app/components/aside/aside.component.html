@@ -1,8 +1,9 @@
 <div class="aside">
     <div>
         <div>Workspace Management</div>
+        <input  type="text" placeholder="workspace id..." [(ngModel)]="inputValue" />
         <div>
-            <button>Create Workspace</button>
+            <button (click)="createWorkspace()">Create Workspace</button>
             <button>Remove Workspace</button>
             <button>Destroy Workspace</button>
             <button>Render Workspace</button>

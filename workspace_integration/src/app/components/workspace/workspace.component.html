@@ -1,3 +1,3 @@
-<div class="workspace">
-    <div>workspace works!</div>
+<div *ngIf="workspaceId" class="workspace">
+    <div data-id="example-workspace" [attr.data-workspace]="workspaceId" [attr.key]="key"></div>
 </div>
