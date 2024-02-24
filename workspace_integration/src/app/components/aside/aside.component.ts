@@ -27,4 +27,14 @@ export class AsideComponent {
     this.inputValue = '';
     this.isWorkspaceWorking = this.workspaceService.getIsWorking();
   }
+
+  public removeWorkspace(): void {
+    this.workspaceService.removeWorkspace();
+  }
+  public destroyWorkspace(): void {
+    this.workspaceService.destroyWorkspace();
+  }
+  public renderWorkspace(): void {
+    this.workspaceService.renderWorkspace();
+  }
 }

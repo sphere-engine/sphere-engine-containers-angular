@@ -18,4 +18,8 @@ export class WorkspaceService {
     this.workspaceId$.next(id);
     this.working = true;
   }
+
+  public removeWorkspace(): void {}
+  public destroyWorkspace(): void {}
+  public renderWorkspace(): void {}
 }
