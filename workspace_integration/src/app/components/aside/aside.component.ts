@@ -23,7 +23,6 @@ export class AsideComponent {
 
   public createWorkspace(): void {
     this.workspaceService.createWorkspace(this.inputValue);
-    console.log(this.inputValue);
     this.inputValue = '';
     this.isWorkspaceWorking = this.workspaceService.getIsWorking();
   }
