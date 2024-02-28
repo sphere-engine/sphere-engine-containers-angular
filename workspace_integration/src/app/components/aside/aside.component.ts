@@ -18,8 +18,8 @@ export class AsideComponent {
 
   protected event: string = '';
   protected eventResponse: string = '';
-  protected inputValue: string = '';
-  protected accessToken: string = '';
+  protected projectId: string = ''; //d6036e3f2c4d4829b5be3cb3b36ce39e
+  protected accessToken: string = ''; //77f3a4eb6cb94f0381978bdc25f4d6e7
   protected isWorkspaceWorking: boolean = false;
   protected tokenErrorMsg: string = '';
 
@@ -39,8 +39,7 @@ export class AsideComponent {
   }
 
   public createWorkspace(): void {
-    this.workspaceService.createWorkspace(this.inputValue);
-    this.inputValue = '';
+    this.workspaceService.createWorkspace(this.projectId);
     this.isWorkspaceWorking = this.workspaceService.getIsWorking();
   }
 

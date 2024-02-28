@@ -3,11 +3,11 @@
         <div>Workspace Management</div>
         <div>
             <input type="text" placeholder="access token..." [(ngModel)]="accessToken" />
-            <button>Save Access Token</button>
+            <button (click)="saveToken()">Save Access Token</button>
             <div *ngIf="tokenErrorMsg!==''">{{tokenErrorMsg}}</div>
         </div>
         <hr/>
-        <input  type="text" placeholder="workspace id..." [(ngModel)]="inputValue" />
+        <input type="text" placeholder="project id..." [(ngModel)]="projectId" />
         <div>
             <button (click)="createWorkspace()">Create Workspace</button>
             <button>Remove Workspace</button>

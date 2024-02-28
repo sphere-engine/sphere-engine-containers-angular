@@ -8,9 +8,10 @@ import { HttpService } from './http.service';
 export class WorkspaceService {
   constructor(private httpService: HttpService) {}
 
-  public workspaceId$ = new Subject<string>();
+  public projectId: string = '';
   private working: boolean = false;
   private accessToken: string = '';
+  public workspaceId$ = new Subject<string>();
 
   public getIsWorking(): boolean {
     return this.working;
@@ -47,8 +48,20 @@ export class WorkspaceService {
   }
 
   public createWorkspace(id: string): void {
-    this.workspaceId$.next(id);
-    this.working = true;
+    this.projectId = id;
+    this.httpService
+      .createWorkspace(this.accessToken, this.projectId)
+      .subscribe({
+        next: (response) => {
+          this.workspaceId$.next(response.workspace.id);
+          this.working = true;
+          console.log('workspace created: ' + response.workspace.id);
+        },
+        error: (error) =>
+          console.log(
+            'ERROR: workspace could not be created' + error.error.message
+          ),
+      });
   }
 
   public removeWorkspace(): void {}
