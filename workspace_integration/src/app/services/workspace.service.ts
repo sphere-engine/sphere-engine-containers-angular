@@ -66,5 +66,13 @@ export class WorkspaceService {
 
   public removeWorkspace(): void {}
   public destroyWorkspace(): void {}
-  public renderWorkspace(): void {}
+  public renderWorkspace(): void {
+    const workspace = window.SE.workspace('seco-workspace');
+    if (!workspace) {
+      window.SE.create(
+        'seco-workspace',
+        document.getElementById('seco-workspace')
+      );
+    }
+  }
 }
