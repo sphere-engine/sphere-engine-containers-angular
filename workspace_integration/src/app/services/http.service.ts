@@ -25,4 +25,14 @@ export class HttpService {
       { project_id }
     );
   }
+
+  public removeWorkspace(
+    token: string,
+    workspace_id: string
+  ): Observable<TestResponse> {
+    return this.httpClient.put<TestResponse>(
+      `https://containers.sphere-engine.com/api/v1/workspaces/${workspace_id}/remove?access_token=${token}`,
+      {}
+    );
+  }
 }

@@ -10,8 +10,8 @@
         <input type="text" placeholder="project id..." [(ngModel)]="projectId" />
         <div>
             <button (click)="createWorkspace()">Create Workspace</button>
-            <button>Remove Workspace</button>
-            <button>Destroy Workspace</button>
+            <button (click)="removeWorkspace()">Remove Workspace</button>
+            <button (click)="destroyWorkspace()">Destroy Workspace</button>
             <button (click)="renderWorkspace()">Render Workspace</button>
         </div>
     </div>

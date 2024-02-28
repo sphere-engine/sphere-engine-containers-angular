@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, catchError, of, switchMap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  catchError,
+  of,
+  switchMap,
+} from 'rxjs';
 import { HttpService } from './http.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +16,11 @@ import { HttpService } from './http.service';
 export class WorkspaceService {
   constructor(private httpService: HttpService) {}
 
-  public projectId: string = '';
+  private projectId: string = '';
   private working: boolean = false;
   private accessToken: string = '';
   public workspaceId$ = new Subject<string>();
+  private workspaceId: string = '';
 
   public getIsWorking(): boolean {
     return this.working;
@@ -54,6 +63,7 @@ export class WorkspaceService {
       .subscribe({
         next: (response) => {
           this.workspaceId$.next(response.workspace.id);
+          this.workspaceId = response.workspace.id;
           this.working = true;
           console.log('workspace created: ' + response.workspace.id);
         },
@@ -64,8 +74,25 @@ export class WorkspaceService {
       });
   }
 
-  public removeWorkspace(): void {}
-  public destroyWorkspace(): void {}
+  public removeWorkspace(): void {
+    this.httpService
+      .removeWorkspace(this.accessToken, this.workspaceId)
+      .subscribe({
+        next: (response) => {
+          console.log(response.message);
+        },
+        error: (error: HttpErrorResponse) => console.log(error.error.message),
+      });
+  }
+
+  public destroyWorkspace(): void {
+    const workspace = window.SE.workspace('seco-workspace');
+
+    if (workspace) {
+      workspace.destroy();
+    }
+  }
+
   public renderWorkspace(): void {
     const workspace = window.SE.workspace('seco-workspace');
     if (!workspace) {

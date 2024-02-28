@@ -18,8 +18,8 @@ export class AsideComponent {
 
   protected event: string = '';
   protected eventResponse: string = '';
-  protected projectId: string = ''; //d6036e3f2c4d4829b5be3cb3b36ce39e
-  protected accessToken: string = ''; //77f3a4eb6cb94f0381978bdc25f4d6e7
+  protected projectId: string = 'd6036e3f2c4d4829b5be3cb3b36ce39e'; //d6036e3f2c4d4829b5be3cb3b36ce39e
+  protected accessToken: string = '77f3a4eb6cb94f0381978bdc25f4d6e7'; //77f3a4eb6cb94f0381978bdc25f4d6e7
   protected isWorkspaceWorking: boolean = false;
   protected tokenErrorMsg: string = '';
 
