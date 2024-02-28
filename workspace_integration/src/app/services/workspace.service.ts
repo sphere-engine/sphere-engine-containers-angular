@@ -90,10 +90,19 @@ export class WorkspaceService {
 
     if (workspace) {
       workspace.destroy();
+
+      const element = document.createElement('div');
+      element.setAttribute('data-id', 'seco-workspace');
+      element.setAttribute('id', 'seco-workspace');
+
+      const workspaceDiv = document.getElementById('workspace');
+      workspaceDiv?.appendChild(element);
     }
   }
 
   public renderWorkspace(): void {
+    const element = document.getElementById('seco-workspace');
+    element?.setAttribute('data-workspace', this.workspaceId);
     const workspace = window.SE.workspace('seco-workspace');
     if (!workspace) {
       window.SE.create(
