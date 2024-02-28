@@ -21,6 +21,7 @@ export class WorkspaceService {
   private accessToken: string = '';
   public workspaceId$ = new Subject<string>();
   private workspaceId: string = '';
+  public eventResponse$ = new Subject<string>();
 
   public getAccessToken(): string {
     return this.accessToken;
@@ -112,5 +113,24 @@ export class WorkspaceService {
         document.getElementById('seco-workspace')
       );
     }
+  }
+
+  public handleChange(e: any): void {
+    console.log(JSON.stringify(e.data));
+    const textarea = document.getElementById('event-response');
+    (textarea as HTMLInputElement).value = JSON.stringify(e.data);
+    // this.eventResponse$.next(JSON.stringify(e.data));
+  }
+
+  public subscribe(event: string): void {
+    console.log('Subscribed: ' + event);
+    let workspace = window.SE.workspace('seco-workspace');
+    workspace.events.subscribe(event, this.handleChange);
+  }
+
+  public unsubscribe(event: string): void {
+    console.log('Unsubscribed: ' + event);
+    let workspace = window.SE.workspace('seco-workspace');
+    workspace.events.unsubscribe(event, this.handleChange);
   }
 }

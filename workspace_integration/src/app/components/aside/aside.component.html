@@ -17,14 +17,14 @@
     </div>
     <div>
         <div>Events</div>
-        <select [(ngModel)]="event" [disabled]="!isToken || !isWorkspaceWorking">
+        <select [(ngModel)]="event" [disabled]="!isToken || !isWorkspaceWorking || subscribed">
             <option value="" disabled>-Choose event-</option>
             <option *ngFor="let event of events" [value]="event">
                 {{ event }}
         </select>
-        <button [disabled]="!isToken || !isWorkspaceWorking">Subscribe</button>
-        <button [disabled]="!isToken || !isWorkspaceWorking">Unsubscribe</button>
+        <button (click)="subscribeEvent()" [disabled]="!isToken || !isWorkspaceWorking || event==='' || subscribed">Subscribe</button>
+        <button (click)="unsubscribeEvent()" [disabled]="!isToken || !isWorkspaceWorking || event==='' || !subscribed">Unsubscribe</button>
         <div>Event Result</div>
-        <textarea class="event-response" disabled [value]="eventResponse"></textarea>
+        <textarea class="event-response" id="event-response" disabled [value]="eventResponse"></textarea>
     </div>
 </div>

@@ -15,6 +15,12 @@ export class AsideComponent implements OnInit {
         this.isWorkspaceWorking = value;
       },
     });
+
+    this.workspaceService.eventResponse$.subscribe({
+      next: (value) => {
+        this.eventResponse = value;
+      },
+    });
   }
 
   protected events: string[] = [
@@ -31,6 +37,7 @@ export class AsideComponent implements OnInit {
   protected isWorkspaceWorking: boolean = false;
   protected tokenErrorMsg: string = '';
   protected isToken: boolean = false;
+  protected subscribed: boolean = false;
 
   public saveToken(): void {
     this.workspaceService.saveToken(this.accessToken).subscribe({
@@ -62,5 +69,13 @@ export class AsideComponent implements OnInit {
   }
   public renderWorkspace(): void {
     this.workspaceService.renderWorkspace();
+  }
+  public subscribeEvent(): void {
+    this.workspaceService.subscribe(this.event);
+    this.subscribed = true;
+  }
+  public unsubscribeEvent(): void {
+    this.workspaceService.unsubscribe(this.event);
+    this.subscribed = false;
   }
 }
