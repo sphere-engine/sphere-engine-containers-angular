@@ -17,14 +17,10 @@ export class WorkspaceService {
   constructor(private httpService: HttpService) {}
 
   private projectId: string = '';
-  private working: boolean = false;
+  public working$ = new BehaviorSubject(false);
   private accessToken: string = '';
   public workspaceId$ = new Subject<string>();
   private workspaceId: string = '';
-
-  public getIsWorking(): boolean {
-    return this.working;
-  }
 
   public getAccessToken(): string {
     return this.accessToken;
@@ -64,13 +60,15 @@ export class WorkspaceService {
         next: (response) => {
           this.workspaceId$.next(response.workspace.id);
           this.workspaceId = response.workspace.id;
-          this.working = true;
+          this.working$.next(true);
           console.log('workspace created: ' + response.workspace.id);
         },
-        error: (error) =>
+        error: (error) => {
           console.log(
             'ERROR: workspace could not be created' + error.error.message
-          ),
+          );
+          this.working$.next(false);
+        },
       });
   }
 
@@ -80,11 +78,14 @@ export class WorkspaceService {
       .subscribe({
         next: (response) => {
           console.log(response.message);
+          this.destroyWorkspace();
+          this.working$.next(false);
         },
         error: (error: HttpErrorResponse) => console.log(error.error.message),
       });
   }
 
+  // nie wiem jak to lepiej zrobić niż tak jak w vue jest
   public destroyWorkspace(): void {
     const workspace = window.SE.workspace('seco-workspace');
 
@@ -100,6 +101,7 @@ export class WorkspaceService {
     }
   }
 
+  // nie wiem jak to lepiej zrobić niż tak jak w vue jest
   public renderWorkspace(): void {
     const element = document.getElementById('seco-workspace');
     element?.setAttribute('data-workspace', this.workspaceId);

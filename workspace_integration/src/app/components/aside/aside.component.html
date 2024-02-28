@@ -9,21 +9,21 @@
         <hr/>
         <input type="text" placeholder="project id..." [(ngModel)]="projectId" />
         <div>
-            <button (click)="createWorkspace()">Create Workspace</button>
-            <button (click)="removeWorkspace()">Remove Workspace</button>
-            <button (click)="destroyWorkspace()">Destroy Workspace</button>
-            <button (click)="renderWorkspace()">Render Workspace</button>
+            <button (click)="createWorkspace()" [disabled]="!isToken">Create Workspace</button>
+            <button (click)="removeWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Remove Workspace</button>
+            <button (click)="destroyWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Destroy Workspace</button>
+            <button (click)="renderWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Render Workspace</button>
         </div>
     </div>
     <div>
         <div>Events</div>
-        <select [(ngModel)]="event">
+        <select [(ngModel)]="event" [disabled]="!isToken || !isWorkspaceWorking">
             <option value="" disabled>-Choose event-</option>
             <option *ngFor="let event of events" [value]="event">
                 {{ event }}
         </select>
-        <button>Subscribe</button>
-        <button>Unsubscribe</button>
+        <button [disabled]="!isToken || !isWorkspaceWorking">Subscribe</button>
+        <button [disabled]="!isToken || !isWorkspaceWorking">Unsubscribe</button>
         <div>Event Result</div>
         <textarea class="event-response" disabled [value]="eventResponse"></textarea>
     </div>

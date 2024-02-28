@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WorkspaceService } from '../../services/workspace.service';
 
 @Component({
@@ -6,8 +6,16 @@ import { WorkspaceService } from '../../services/workspace.service';
   templateUrl: './aside.component.html',
   styleUrls: ['./aside.component.scss'],
 })
-export class AsideComponent {
+export class AsideComponent implements OnInit {
   public constructor(private workspaceService: WorkspaceService) {}
+
+  public ngOnInit(): void {
+    this.workspaceService.working$.subscribe({
+      next: (value) => {
+        this.isWorkspaceWorking = value;
+      },
+    });
+  }
 
   protected events: string[] = [
     'afterScenarioExecution',
@@ -22,25 +30,28 @@ export class AsideComponent {
   protected accessToken: string = '77f3a4eb6cb94f0381978bdc25f4d6e7'; //77f3a4eb6cb94f0381978bdc25f4d6e7
   protected isWorkspaceWorking: boolean = false;
   protected tokenErrorMsg: string = '';
+  protected isToken: boolean = false;
 
   public saveToken(): void {
     this.workspaceService.saveToken(this.accessToken).subscribe({
       next: (value) => {
         if (value) {
           this.tokenErrorMsg = 'Token accepted';
+          this.isToken = true;
         } else {
           this.tokenErrorMsg = 'Token not accepted';
+          this.isToken = false;
         }
       },
       error: () => {
         this.tokenErrorMsg = 'Token not accepted';
+        this.isToken = false;
       },
     });
   }
 
   public createWorkspace(): void {
     this.workspaceService.createWorkspace(this.projectId);
-    this.isWorkspaceWorking = this.workspaceService.getIsWorking();
   }
 
   public removeWorkspace(): void {
