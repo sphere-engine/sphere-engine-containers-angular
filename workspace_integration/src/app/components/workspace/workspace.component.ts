@@ -23,5 +23,6 @@ export class WorkspaceComponent implements OnInit {
     });
   }
 
+  // nastepnym razem tego komponentu nie powinno byc, tylko zrobic to w jakims main
   protected workspaceId: string = '';
 }

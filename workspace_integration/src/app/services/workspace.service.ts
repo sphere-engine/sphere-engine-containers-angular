@@ -117,9 +117,11 @@ export class WorkspaceService {
 
   public handleChange(e: any): void {
     console.log(JSON.stringify(e.data));
+    // nie podoba mi się to że handler musi ustawiać wartość elementu w DOM
+    // jak próbuje przypisać tu e.data do Subject to otrzymuje cannot read null :(
+    // this.eventResponse$.next(JSON.stringify(e.data));
     const textarea = document.getElementById('event-response');
     (textarea as HTMLInputElement).value = JSON.stringify(e.data);
-    // this.eventResponse$.next(JSON.stringify(e.data));
   }
 
   public subscribe(event: string): void {
