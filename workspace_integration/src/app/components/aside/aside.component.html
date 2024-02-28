@@ -1,6 +1,12 @@
 <div class="aside">
     <div>
         <div>Workspace Management</div>
+        <div>
+            <input type="text" placeholder="access token..." [(ngModel)]="accessToken" />
+            <button>Save Access Token</button>
+            <div *ngIf="tokenErrorMsg!==''">{{tokenErrorMsg}}</div>
+        </div>
+        <hr/>
         <input  type="text" placeholder="workspace id..." [(ngModel)]="inputValue" />
         <div>
             <button (click)="createWorkspace()">Create Workspace</button>

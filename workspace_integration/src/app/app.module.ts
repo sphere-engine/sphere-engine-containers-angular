@@ -6,10 +6,17 @@ import { AppComponent } from './app.component';
 import { AsideComponent } from './components/aside/aside.component';
 import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, AsideComponent, WorkspaceComponent],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -19,7 +19,24 @@ export class AsideComponent {
   protected event: string = '';
   protected eventResponse: string = '';
   protected inputValue: string = '';
+  protected accessToken: string = '';
   protected isWorkspaceWorking: boolean = false;
+  protected tokenErrorMsg: string = '';
+
+  public saveToken(): void {
+    this.workspaceService.saveToken(this.accessToken).subscribe({
+      next: (value) => {
+        if (value) {
+          this.tokenErrorMsg = 'Token accepted';
+        } else {
+          this.tokenErrorMsg = 'Token not accepted';
+        }
+      },
+      error: () => {
+        this.tokenErrorMsg = 'Token not accepted';
+      },
+    });
+  }
 
   public createWorkspace(): void {
     this.workspaceService.createWorkspace(this.inputValue);

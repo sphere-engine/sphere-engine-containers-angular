@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { WorkspaceService } from './services/workspace.service';
 
 @Component({
   selector: 'app-root',

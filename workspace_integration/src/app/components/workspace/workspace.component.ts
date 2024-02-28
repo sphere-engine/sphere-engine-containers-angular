@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
 import { WorkspaceService } from '../../services/workspace.service';
 import { tap } from 'rxjs';
 
@@ -13,30 +13,16 @@ declare global {
   templateUrl: './workspace.component.html',
   styleUrls: ['./workspace.component.scss'],
 })
-export class WorkspaceComponent implements OnInit {
+export class WorkspaceComponent implements AfterContentInit {
   public constructor(private workspaceService: WorkspaceService) {}
-  public ngOnInit(): void {
-    this.workspaceService.workspaceId$
-      .pipe(
-        tap((value) => {
-          this.workspaceId = value;
-          this.refreshed = true;
-          this.key += 1;
-        })
-      )
-      .subscribe({
-        next: (value) => {
-          window.SE?.ready(() => {
-            console.log(value);
-            this.workspace = window.SE?.workspace('123');
-          });
-        },
-        error: (err) => console.log('error: ' + err),
-      });
+  @Input() workspaceId!: string;
+  public ngAfterContentInit(): void {
+    window.SE.ready(() => {
+      this.workspace = window.SE.workspace('123');
+      this.key += 1;
+    });
   }
 
-  protected refreshed: boolean = false;
   protected key: number = 1;
-  protected workspaceId: string = '';
   protected workspace = null;
 }
