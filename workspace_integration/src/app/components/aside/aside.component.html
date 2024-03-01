@@ -1,30 +1,29 @@
 <div class="aside">
     <div>
-        <div>Workspace Management</div>
-        <div>
-            <input type="text" placeholder="access token..." [(ngModel)]="accessToken" />
-            <button (click)="saveToken()">Save Access Token</button>
-            <div *ngIf="tokenErrorMsg!==''">{{tokenErrorMsg}}</div>
+        <div class="title">Workspace Management</div>
+        <div class="token-form">
+            <input type="text" class="token-input" placeholder="access token..." [(ngModel)]="accessToken" />
+            <button class="token-btn" (click)="saveToken()">Save Access Token</button>
+            <div class="token-error" *ngIf="tokenErrorMsg!==''">{{tokenErrorMsg}}</div>
         </div>
-        <hr/>
-        <input type="text" placeholder="project id..." [(ngModel)]="projectId" />
-        <div>
-            <button (click)="createWorkspace()" [disabled]="!isToken">Create Workspace</button>
-            <button (click)="removeWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Remove Workspace</button>
-            <button (click)="destroyWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Destroy Workspace</button>
-            <button (click)="renderWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Render Workspace</button>
+        <input class="project-form" type="text" placeholder="project id..." [(ngModel)]="projectId" />
+        <div class="workspace-btns">
+            <button class="btn-1" (click)="createWorkspace()" [disabled]="!isToken">Create Workspace</button>
+            <button class="btn-2" (click)="removeWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Remove Workspace</button>
+            <button class="btn-3" (click)="destroyWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Destroy Workspace</button>
+            <button class="btn-4" (click)="renderWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Render Workspace</button>
         </div>
     </div>
-    <div>
-        <div>Events</div>
+    <div class="events-form">
+        <div class="title">Events</div>
         <select [(ngModel)]="event" [disabled]="!isToken || !isWorkspaceWorking || subscribed">
             <option value="" disabled>-Choose event-</option>
             <option *ngFor="let event of events" [value]="event">
                 {{ event }}
         </select>
-        <button (click)="subscribeEvent()" [disabled]="!isToken || !isWorkspaceWorking || event==='' || subscribed">Subscribe</button>
-        <button (click)="unsubscribeEvent()" [disabled]="!isToken || !isWorkspaceWorking || event==='' || !subscribed">Unsubscribe</button>
-        <div>Event Result</div>
+        <button class="btn-sub" (click)="subscribeEvent()" [disabled]="!isToken || !isWorkspaceWorking || event==='' || subscribed">Subscribe</button>
+        <button class="btn-sub" (click)="unsubscribeEvent()" [disabled]="!isToken || !isWorkspaceWorking || event==='' || !subscribed">Unsubscribe</button>
+        <div class="title">Event Result</div>
         <textarea class="event-response" id="event-response" disabled [value]="eventResponse"></textarea>
     </div>
 </div>

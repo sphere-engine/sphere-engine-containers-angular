@@ -54,6 +54,11 @@ export class AsideComponent implements OnInit {
         this.tokenErrorMsg = 'Token not accepted';
         this.isToken = false;
       },
+      complete: () => {
+        setTimeout(() => {
+          this.tokenErrorMsg = '';
+        }, 3000);
+      },
     });
   }
 
