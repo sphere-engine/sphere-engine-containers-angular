@@ -7,17 +7,27 @@
             <div class="token-error" *ngIf="tokenErrorMsg!==''">{{tokenErrorMsg}}</div>
         </div>
         <input class="project-form" type="text" placeholder="project id..." [(ngModel)]="projectId" />
-        <div class="workspace-btns">
-            <button class="btn-1" (click)="createWorkspace()" [disabled]="!isToken">Create Workspace</button>
-            <button class="btn-2" (click)="removeWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Remove Workspace</button>
-            <button class="btn-3" (click)="destroyWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Destroy Workspace</button>
-            <button class="btn-4" (click)="renderWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Render Workspace</button>
+        <div class="buttons">
+            <div class="workspace-btns">
+                <button class="btn-1" (click)="createWorkspace()" [disabled]="!isToken">Create Workspace</button>
+                <button class="btn-2" (click)="removeWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Remove Workspace</button>
+                <button class="btn-3" (click)="destroyWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Destroy Workspace</button>
+                <button class="btn-4" (click)="renderWorkspace()" [disabled]="!isToken || !isWorkspaceWorking">Render Workspace</button>
+            </div>
+            <div class="aside-modal">
+                <button (click)="displayModal()" class="btn-modal" [disabled]="!isToken || !isWorkspaceWorking">Open in modal</button>
+                <app-modal *ngIf="showModal" [workspaceId]="workspaceId()" [key]="keyForRefresh">
+                    <div class="modal-close-btn" #modalDiv>
+                        <button (click)="displayModal()">Close modal</button>
+                    </div>
+                </app-modal>
+            </div>
         </div>
     </div>
     <div class="events-form">
         <div class="title">Events</div>
         <select [(ngModel)]="event" [disabled]="!isToken || !isWorkspaceWorking || subscribed">
-            <option value="" disabled>-Choose event-</option>
+            <option value="" disabled>-Chose event-</option>
             <option *ngFor="let event of events" [value]="event">
                 {{ event }}
         </select>

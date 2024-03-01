@@ -31,6 +31,7 @@ export class AsideComponent implements OnInit {
   ];
 
   protected event: string = '';
+  protected showModal: boolean = false;
   protected eventResponse: string = '';
   protected projectId: string = 'd6036e3f2c4d4829b5be3cb3b36ce39e'; //d6036e3f2c4d4829b5be3cb3b36ce39e
   protected accessToken: string = '77f3a4eb6cb94f0381978bdc25f4d6e7'; //77f3a4eb6cb94f0381978bdc25f4d6e7
@@ -38,6 +39,16 @@ export class AsideComponent implements OnInit {
   protected tokenErrorMsg: string = '';
   protected isToken: boolean = false;
   protected subscribed: boolean = false;
+  protected keyForRefresh: number = 1;
+
+  public displayModal(): void {
+    this.showModal = !this.showModal;
+    this.keyForRefresh++;
+  }
+
+  public workspaceId(): string {
+    return this.workspaceService.getWorkspaceId();
+  }
 
   public saveToken(): void {
     this.workspaceService.saveToken(this.accessToken).subscribe({
