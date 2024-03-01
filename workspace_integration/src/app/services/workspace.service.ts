@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import {
   BehaviorSubject,
   Observable,
@@ -13,8 +13,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class WorkspaceService {
+export class WorkspaceService implements OnDestroy {
   constructor(private httpService: HttpService) {}
+
+  public ngOnDestroy(): void {
+    if (this.workspaceId !== '') {
+      this.removeWorkspace();
+    }
+  }
 
   private projectId: string = '';
   public working$ = new BehaviorSubject(false);
@@ -22,6 +28,10 @@ export class WorkspaceService {
   public workspaceId$ = new Subject<string>();
   private workspaceId: string = '';
   public eventResponse$ = new Subject<string>();
+
+  public getWorkspaceId(): string {
+    return this.workspaceId;
+  }
 
   public getAccessToken(): string {
     return this.accessToken;

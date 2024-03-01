@@ -7,9 +7,10 @@ import { AsideComponent } from './components/aside/aside.component';
 import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
-  declarations: [AppComponent, AsideComponent, WorkspaceComponent],
+  declarations: [AppComponent, AsideComponent, WorkspaceComponent, ModalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
