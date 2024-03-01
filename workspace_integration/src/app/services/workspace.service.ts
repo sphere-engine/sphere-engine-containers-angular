@@ -116,13 +116,7 @@ export class WorkspaceService implements OnDestroy {
   public renderWorkspace(): void {
     const element = document.getElementById('seco-workspace');
     element?.setAttribute('data-workspace', this.workspaceId);
-    const workspace = window.SE.workspace('seco-workspace');
-    if (!workspace) {
-      window.SE.create(
-        'seco-workspace',
-        document.getElementById('seco-workspace')
-      );
-    }
+    window.SE.workspace('seco-workspace');
   }
 
   public handleChange(e: any): void {

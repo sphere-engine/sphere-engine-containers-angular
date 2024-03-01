@@ -4,6 +4,7 @@ import {
   ElementRef,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 
@@ -12,18 +13,19 @@ import {
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements OnChanges {
+export class ModalComponent implements OnChanges, OnDestroy {
   public ngOnChanges(): void {
     console.log(this.key);
     setTimeout(() => {
-      const element = document.getElementById('modal-workspace');
-      element?.setAttribute('data-workspace', this.workspaceId);
       this.workspace = window.SE.workspace('modal-workspace');
-      window.SE.create(0, document.getElementById('modal-workspace'));
     }, 1000);
   }
 
-  protected workspace = null;
+  public ngOnDestroy(): void {
+    this.workspace.destroy();
+  }
+
+  protected workspace: any = null;
   @Input() key!: number;
   @Input() workspaceId!: string;
   @ContentChild('modalDiv') modalDiv!: ElementRef;
