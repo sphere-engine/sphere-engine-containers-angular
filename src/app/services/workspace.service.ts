@@ -1,31 +1,18 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import {
-  BehaviorSubject,
-  Observable,
-  Subject,
-  catchError,
-  of,
-  switchMap,
-} from 'rxjs';
-import { HttpService } from './http.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WorkspaceService implements OnDestroy {
-  constructor(private httpService: HttpService) {}
-
   public ngOnDestroy(): void {
     if (this.workspaceId !== '') {
       this.removeWorkspace();
     }
   }
 
-  private projectId: string = '';
   public working$ = new BehaviorSubject(false);
-  private accessToken: string = '';
-  public workspaceId$ = new Subject<string>();
+  private accessToken: string = '77f3a4eb6cb94f0381978bdc25f4d6e7';
   private workspaceId: string = '';
   public eventResponse$ = new Subject<string>();
 
@@ -37,86 +24,26 @@ export class WorkspaceService implements OnDestroy {
     return this.accessToken;
   }
 
-  public saveToken(token: string): Observable<boolean> {
-    try {
-      if (token) {
-        return this.httpService.testToken(token).pipe(
-          switchMap((value) => {
-            if (value.message === 'You can use Sphere Engine Containers API') {
-              this.accessToken = token;
-              return of(true);
-            } else {
-              return of(false);
-            }
-          }),
-          catchError((error) => {
-            console.log(error);
-            return of(false);
-          })
-        );
-      } else {
-        return of(false);
-      }
-    } catch (err) {
-      console.log(err);
-      return of(false);
-    }
-  }
-
   public createWorkspace(id: string): void {
-    this.projectId = id;
-    this.httpService
-      .createWorkspace(this.accessToken, this.projectId)
-      .subscribe({
-        next: (response) => {
-          this.workspaceId$.next(response.workspace.id);
-          this.workspaceId = response.workspace.id;
-          this.working$.next(true);
-          console.log('workspace created: ' + response.workspace.id);
-        },
-        error: (error) => {
-          console.log(
-            'ERROR: workspace could not be created' + error.error.message
-          );
-          this.working$.next(false);
-        },
-      });
+    this.working$.next(true);
+    this.workspaceId = id;
+    setTimeout(() => {
+      window.SE?.workspace('seco-workspace');
+    }, 1000);
   }
 
   public removeWorkspace(): void {
-    this.httpService
-      .removeWorkspace(this.accessToken, this.workspaceId)
-      .subscribe({
-        next: (response) => {
-          console.log(response.message);
-          this.destroyWorkspace();
-          this.working$.next(false);
-        },
-        error: (error: HttpErrorResponse) => console.log(error.error.message),
-      });
-  }
+    const workspace = window.SE?.workspace('seco-workspace');
 
-  // nie wiem jak to lepiej zrobić niż tak jak w vue jest
-  public destroyWorkspace(): void {
-    const workspace = window.SE.workspace('seco-workspace');
+    const element = document.createElement('div');
+    element.setAttribute('data-id', 'seco-workspace');
+    element.setAttribute('id', 'seco-workspace');
+    element.setAttribute('data-workspace', '');
 
-    if (workspace) {
-      workspace.destroy();
-
-      const element = document.createElement('div');
-      element.setAttribute('data-id', 'seco-workspace');
-      element.setAttribute('id', 'seco-workspace');
-
-      const workspaceDiv = document.getElementById('workspace');
-      workspaceDiv?.appendChild(element);
-    }
-  }
-
-  // nie wiem jak to lepiej zrobić niż tak jak w vue jest
-  public renderWorkspace(): void {
-    const element = document.getElementById('seco-workspace');
-    element?.setAttribute('data-workspace', this.workspaceId);
-    window.SE.workspace('seco-workspace');
+    const workspaceDiv = document.getElementById('workspace');
+    workspaceDiv?.appendChild(element);
+    workspace.destroy();
+    this.working$.next(false);
   }
 
   public handleChange(e: any): void {

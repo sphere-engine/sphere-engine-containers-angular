@@ -30,61 +30,36 @@ export class AsideComponent implements OnInit {
     'stageStream',
   ];
 
-  protected event: string = '';
+  protected workspaceId: string = '';
   protected showModal: boolean = false;
+  protected event: string = '';
   protected eventResponse: string = '';
-  protected projectId: string = ''; //'d6036e3f2c4d4829b5be3cb3b36ce39e';
-  protected accessToken: string = ''; //'77f3a4eb6cb94f0381978bdc25f4d6e7';
   protected isWorkspaceWorking: boolean = false;
   protected tokenErrorMsg: string = '';
-  protected isToken: boolean = false;
   protected subscribed: boolean = false;
   protected keyForRefresh: number = 1;
+  protected showWorkspace: boolean = false;
 
   public displayModal(): void {
     this.showModal = !this.showModal;
     this.keyForRefresh++;
   }
 
-  public workspaceId(): string {
-    return this.workspaceService.getWorkspaceId();
-  }
-
-  public saveToken(): void {
-    this.workspaceService.saveToken(this.accessToken).subscribe({
-      next: (value) => {
-        if (value) {
-          this.tokenErrorMsg = 'Token accepted';
-          this.isToken = true;
-        } else {
-          this.tokenErrorMsg = 'Token not accepted';
-          this.isToken = false;
-        }
-      },
-      error: () => {
-        this.tokenErrorMsg = 'Token not accepted';
-        this.isToken = false;
-      },
-      complete: () => {
-        setTimeout(() => {
-          this.tokenErrorMsg = '';
-        }, 3000);
-      },
-    });
-  }
-
   public createWorkspace(): void {
-    this.workspaceService.createWorkspace(this.projectId);
+    this.workspaceService.createWorkspace(this.workspaceId);
+    this.showWorkspace = true;
   }
 
   public removeWorkspace(): void {
     this.workspaceService.removeWorkspace();
   }
   public destroyWorkspace(): void {
-    this.workspaceService.destroyWorkspace();
+    this.showWorkspace = false;
   }
   public renderWorkspace(): void {
-    this.workspaceService.renderWorkspace();
+    this.showWorkspace = true;
+    this.keyForRefresh++;
+    window.SE.workspace('seco-workspace');
   }
   public subscribeEvent(): void {
     this.workspaceService.subscribe(this.event);
