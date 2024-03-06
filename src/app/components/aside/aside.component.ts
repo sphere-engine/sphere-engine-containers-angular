@@ -39,6 +39,11 @@ export class AsideComponent implements OnInit {
   protected subscribed: boolean = false;
   protected keyForRefresh: number = 1;
   protected showWorkspace: boolean = false;
+  protected bigSize: boolean = true;
+
+  public resize(): void {
+    this.bigSize = !this.bigSize;
+  }
 
   public displayModal(): void {
     this.showModal = !this.showModal;

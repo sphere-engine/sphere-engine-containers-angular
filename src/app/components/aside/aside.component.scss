@@ -10,7 +10,7 @@
 
         .workspace {
             display: block;
-            height: 100%;
+            
         } 
     }
 
@@ -140,6 +140,10 @@
             }
             .btn-4:not(:disabled) {
                 background-color: green;
+                color: white;
+            }
+            .btn-5:not(:disabled) {
+                background-color: brown;
                 color: white;
             }
         }

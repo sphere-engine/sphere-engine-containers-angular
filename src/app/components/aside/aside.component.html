@@ -1,6 +1,6 @@
 <div class="container">
     <app-workspace [workspaceId]="workspaceId" [ngStyle]="{ 'visibility': showWorkspace && isWorkspaceWorking ? 'visible' : 'hidden' }">
-        <div class="workspace" id="workspace" [attr.id]="keyForRefresh">
+        <div class="workspace" id="workspace" [ngStyle]="{ 'height': bigSize ? '100%' : '70%' }" [attr.id]="keyForRefresh">
             <div id="seco-workspace" data-id="seco-workspace" [attr.data-workspace]="workspaceId"></div>
         </div>
     </app-workspace>
@@ -17,6 +17,7 @@
                     <button class="btn-2" (click)="removeWorkspace()" [disabled]="!isWorkspaceWorking">Remove Workspace</button>
                     <button class="btn-3" (click)="destroyWorkspace()" [disabled]="!isWorkspaceWorking || !showWorkspace">Hide Workspace</button>
                     <button class="btn-4" (click)="renderWorkspace()" [disabled]="!isWorkspaceWorking || showWorkspace">Show Workspace</button>
+                    <button class="btn-5" (click)="resize()" [disabled]="!isWorkspaceWorking || !showWorkspace">Resize </button>
                 </div>
                 <div class="aside-modal">
                     <button (click)="displayModal()" class="btn-modal" [disabled]="!isWorkspaceWorking">Open in modal</button>
