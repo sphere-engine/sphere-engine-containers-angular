@@ -19,6 +19,23 @@ export class WorkspaceService {
     return this.accessToken;
   }
 
+  public changeWorkspace(id: string): void {
+    const workspace = window.SE?.workspace('seco-workspace');
+    workspace.destroy();
+
+    const element = document.createElement('div');
+    element.setAttribute('data-id', 'seco-workspace');
+    element.setAttribute('id', 'seco-workspace');
+    element.setAttribute('data-workspace', id);
+
+    const workspaceDiv = document.getElementById('workspace');
+    workspaceDiv?.appendChild(element);
+
+    setTimeout(() => {
+      window.SE?.workspace('seco-workspace');
+    }, 1000);
+  }
+
   public createWorkspace(ids: string[]): void {
     this.working$.next(true);
     this.workspaceIds = ids;
@@ -30,6 +47,8 @@ export class WorkspaceService {
   }
 
   public removeWorkspace(): void {
+    this.workspaceIds = [];
+    this.currentWorkspaceId = '';
     const workspace = window.SE?.workspace('seco-workspace');
 
     const element = document.createElement('div');

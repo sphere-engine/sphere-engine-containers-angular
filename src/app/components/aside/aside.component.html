@@ -10,7 +10,11 @@
             <app-workspace-form *ngIf="!isWorkspaceWorking" (dataEvent)="createWorkspace($event)">
                 <button class="btn-1" type="submit" [disabled]="isWorkspaceWorking">Create Workspace</button>
             </app-workspace-form>
-            <div *ngIf="isWorkspaceWorking">Todo: wybieranie workspace</div>
+            <div *ngIf="isWorkspaceWorking" class="workspace-ids">
+                <div *ngFor="let workspace of workspaceIds">
+                    <button (click)="setCurrentWorkspace(workspace)">{{workspace}}</button>
+                </div>
+            </div>
             <div class="buttons">
                 <div class="workspace-btns">
                     <button class="btn-2" (click)="removeWorkspace()" [disabled]="!isWorkspaceWorking">Remove Workspace</button>

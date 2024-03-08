@@ -41,6 +41,11 @@ export class AsideComponent implements OnInit {
   protected showWorkspace: boolean = false;
   protected bigSize: boolean = true;
 
+  public setCurrentWorkspace(id: string): void {
+    this.workspaceId = id;
+    this.workspaceService.changeWorkspace(id);
+  }
+
   public resize(): void {
     this.bigSize = !this.bigSize;
   }
@@ -58,6 +63,8 @@ export class AsideComponent implements OnInit {
   }
 
   public removeWorkspace(): void {
+    this.workspaceId = '';
+    this.workspaceIds = [];
     this.workspaceService.removeWorkspace();
   }
   public destroyWorkspace(): void {
@@ -66,7 +73,6 @@ export class AsideComponent implements OnInit {
   public renderWorkspace(): void {
     this.showWorkspace = true;
     this.keyForRefresh++;
-    window.SE.workspace('seco-workspace');
   }
   public subscribeEvent(): void {
     this.workspaceService.subscribe(this.event);

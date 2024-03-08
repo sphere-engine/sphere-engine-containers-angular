@@ -33,6 +33,14 @@
     display: block;
     height: 100%;
 
+    .workspace-ids {
+        max-height: 20vh;
+        overflow: auto;
+        border: 1px solid black;
+        padding: 5px;
+        width: fit-content;
+    }
+
     .title {
         font-size: 33px;
         font-weight: bold;
@@ -50,6 +58,8 @@
         width: fit-content;
         padding: 13px;
         border: none;
+        background-color: black;
+        color: white;
     }
 
     button:disabled {
