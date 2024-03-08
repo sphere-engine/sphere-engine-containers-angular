@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IdForm, WorkspaceIdForm } from 'src/app/models/workspaceIdForm.model';
 
@@ -34,6 +34,9 @@ export class WorkspaceFormComponent {
 
   public createWorkspaces(): void {
     this.workspaceIds = this.getIds().value.map((t: any) => t.id);
-    console.log(this.workspaceIds);
+    // console.log(this.workspaceIds);
+    this.dataEvent.emit(this.workspaceIds);
   }
+
+  @Output() dataEvent: EventEmitter<string[]> = new EventEmitter<string[]>();
 }

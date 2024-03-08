@@ -7,8 +7,8 @@
     <div class="aside">
         <div>
             <div class="title">Workspace Management</div>
-            <app-workspace-form >
-                <button class="btn-1" type="submit" (click)="createWorkspace()" >Create Workspace</button>
+            <app-workspace-form (dataEvent)="createWorkspace($event)">
+                <button class="btn-1" type="submit">Create Workspace</button>
             </app-workspace-form>
             <div class="buttons">
                 <div class="workspace-btns">

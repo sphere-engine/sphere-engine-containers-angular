@@ -30,6 +30,7 @@ export class AsideComponent implements OnInit {
     'stageStream',
   ];
 
+  protected workspaceIds: string[] = [];
   protected workspaceId: string = '';
   protected showModal: boolean = false;
   protected event: string = '';
@@ -49,9 +50,10 @@ export class AsideComponent implements OnInit {
     this.keyForRefresh++;
   }
 
-  public createWorkspace(): void {
-    // console.log(this.workspaceId);
-    this.workspaceService.createWorkspace(this.workspaceId);
+  public createWorkspace(workspaceIds: string[]): void {
+    this.workspaceId = workspaceIds[0];
+    this.workspaceIds = workspaceIds;
+    this.workspaceService.createWorkspace(this.workspaceIds);
     this.showWorkspace = true;
   }
 
