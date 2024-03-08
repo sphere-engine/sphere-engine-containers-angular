@@ -1,6 +1,6 @@
 <div class="container">
     <app-workspace [workspaceId]="workspaceId" [ngStyle]="{ 'visibility': showWorkspace && isWorkspaceWorking ? 'visible' : 'hidden' }">
-        <div class="workspace" id="workspace" [ngStyle]="{ 'height': bigSize ? '100%' : '70%' }" [attr.id]="keyForRefresh">
+        <div class="workspace" id="workspace" [ngStyle]="{ 'height': bigSize ? '100%' : '70%' }" [attr.key]="keyForRefresh">
             <div id="seco-workspace" data-id="seco-workspace" [attr.data-workspace]="workspaceId"></div>
         </div>
     </app-workspace>
@@ -8,7 +8,7 @@
         <div>
             <div class="title">Workspace Management</div>
             <app-workspace-form (dataEvent)="createWorkspace($event)">
-                <button class="btn-1" type="submit">Create Workspace</button>
+                <button class="btn-1" type="submit" [disabled]="isWorkspaceWorking">Create Workspace</button>
             </app-workspace-form>
             <div class="buttons">
                 <div class="workspace-btns">
