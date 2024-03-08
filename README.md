@@ -19,18 +19,6 @@ Start with writing in first input access token given by the company. Next write 
 
 ## Getting started
 
-Include package in project in main component:
-
-```ts
-declare global {
-  interface Window {
-    SE?: any;
-  }
-}
-```
-
-## Usage example
-
 Create in `src/assets` file with code snipet. Then in `angular.json` add in `script`:
 
 ```ts
@@ -62,6 +50,18 @@ Create in `src/assets` file with code snipet. Then in `angular.json` add in `scr
     }
 ...
 ```
+
+Include package in project in main component:
+
+```ts
+declare global {
+  interface Window {
+    SE?: any;
+  }
+}
+```
+
+## Usage example
 
 ### Creating workspace
 
