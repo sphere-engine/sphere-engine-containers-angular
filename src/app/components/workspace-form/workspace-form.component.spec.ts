@@ -1,0 +1,21 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { WorkspaceFormComponent } from './workspace-form.component';
+
+describe('WorkspaceFormComponent', () => {
+  let component: WorkspaceFormComponent;
+  let fixture: ComponentFixture<WorkspaceFormComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [WorkspaceFormComponent]
+    });
+    fixture = TestBed.createComponent(WorkspaceFormComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

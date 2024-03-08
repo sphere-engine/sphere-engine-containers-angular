@@ -1,0 +1,14 @@
+<form [formGroup]="workspaceIdForm" (ngSubmit)="createWorkspaces()">
+    <div formArrayName="ids"  class="column">
+        <label>Ids: </label>
+        <div *ngFor="let id of getIds().controls; index as i"  class="in-line">
+            <div [formGroup]="id" class="column">
+                <input type="text" formControlName="id">
+              </div>
+          <button type="button" class="button-small" (click)="removeId(i)">x</button>
+        </div>
+    
+        <button type="button" class="button-small center" (click)="addId()">+</button>
+      </div>
+      <ng-content></ng-content>
+</form>

@@ -7,13 +7,11 @@
     <div class="aside">
         <div>
             <div class="title">Workspace Management</div>
-            <div class="token-form">
-                <input class="project-form" type="text" placeholder="Workspace id..." [(ngModel)]="workspaceId" />
-                <div class="token-error" *ngIf="tokenErrorMsg!==''">{{tokenErrorMsg}}</div>
-            </div>
+            <app-workspace-form >
+                <button class="btn-1" type="submit" (click)="createWorkspace()" >Create Workspace</button>
+            </app-workspace-form>
             <div class="buttons">
                 <div class="workspace-btns">
-                    <button class="btn-1" (click)="createWorkspace()" >Create Workspace</button>
                     <button class="btn-2" (click)="removeWorkspace()" [disabled]="!isWorkspaceWorking">Remove Workspace</button>
                     <button class="btn-3" (click)="destroyWorkspace()" [disabled]="!isWorkspaceWorking || !showWorkspace">Hide Workspace</button>
                     <button class="btn-4" (click)="renderWorkspace()" [disabled]="!isWorkspaceWorking || showWorkspace">Show Workspace</button>

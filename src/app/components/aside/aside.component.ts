@@ -35,7 +35,6 @@ export class AsideComponent implements OnInit {
   protected event: string = '';
   protected eventResponse: string = '';
   protected isWorkspaceWorking: boolean = false;
-  protected tokenErrorMsg: string = '';
   protected subscribed: boolean = false;
   protected keyForRefresh: number = 1;
   protected showWorkspace: boolean = false;
@@ -51,6 +50,7 @@ export class AsideComponent implements OnInit {
   }
 
   public createWorkspace(): void {
+    // console.log(this.workspaceId);
     this.workspaceService.createWorkspace(this.workspaceId);
     this.showWorkspace = true;
   }

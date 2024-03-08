@@ -62,13 +62,20 @@
     button:not(:disabled):hover {
         opacity: 0.8;
     }
+
+    .btn-1:not(:disabled) {
+        background-color: blue;
+        color: white;
+    }
+
     .token-form {
         display: flex;
         flex-direction: column;
         align-items: center;
     
-        .token-input {
-            width: 33vw;
+        .project-input {
+            width: 25vw;
+            // height: 100px;
         }
     
         .token-btn {
@@ -85,10 +92,6 @@
             text-align: center;
             margin-bottom: 10px;
         }
-    }
-    
-    .project-form {
-        width: 33vw;
     }
     
     .buttons {
@@ -126,10 +129,7 @@
                 border: none;
             }
         
-            .btn-1:not(:disabled) {
-                background-color: blue;
-                color: white;
-            }
+            
             .btn-2:not(:disabled) {
                 background-color: orangered;
                 color: white;
