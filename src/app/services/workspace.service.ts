@@ -4,29 +4,24 @@ import { BehaviorSubject, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class WorkspaceService implements OnDestroy {
-  public ngOnDestroy(): void {
-    if (this.workspaceId !== '') {
-      this.removeWorkspace();
-    }
-  }
-
+export class WorkspaceService {
   public working$ = new BehaviorSubject(false);
   private accessToken: string = '77f3a4eb6cb94f0381978bdc25f4d6e7';
-  private workspaceId: string = '';
+  private currentWorkspaceId: string = '';
+  private workspaceIds: string[] = [];
   public eventResponse$ = new Subject<string>();
 
   public getWorkspaceId(): string {
-    return this.workspaceId;
+    return this.currentWorkspaceId;
   }
 
   public getAccessToken(): string {
     return this.accessToken;
   }
 
-  public createWorkspace(id: string): void {
+  public createWorkspace(ids: string[]): void {
     this.working$.next(true);
-    this.workspaceId = id;
+    this.workspaceIds = ids;
     setTimeout(() => {
       window.SE?.workspace('seco-workspace');
     }, 1000);
