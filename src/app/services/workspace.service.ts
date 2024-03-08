@@ -31,9 +31,7 @@ export class WorkspaceService {
     const workspaceDiv = document.getElementById('workspace');
     workspaceDiv?.appendChild(element);
 
-    setTimeout(() => {
-      window.SE?.workspace('seco-workspace');
-    }, 1000);
+    window.SE?.workspace('seco-workspace');
   }
 
   public createWorkspace(ids: string[]): void {
@@ -41,9 +39,7 @@ export class WorkspaceService {
     this.workspaceIds = ids;
     const element = document.getElementById('seco-workspace');
     element?.setAttribute('data-workspace', this.workspaceIds[0]);
-    setTimeout(() => {
-      window.SE?.workspace('seco-workspace');
-    }, 1000);
+    window.SE?.workspace('seco-workspace');
   }
 
   public removeWorkspace(): void {
