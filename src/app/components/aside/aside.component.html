@@ -1,12 +1,12 @@
 <div class="container">
     <div class="workspace-div">
-            <div class="workspace-for" *ngFor="let workspaceid of workspaceIds; index as i">
-                <app-workspace [workspaceId]="workspaceid"  [ngStyle]="{ 'visibility': showWorkspace && isWorkspaceWorking ? 'visible' : 'hidden' }">
+            <ng-container class="workspace-for" *ngFor="let workspaceid of workspaceIds; index as i">
+                <app-workspace [workspaceId]="workspaceid"  [ngStyle]="{ 'visibility': showWorkspaceId===i && showWorkspace && isWorkspaceWorking ? 'visible' : 'hidden', 'z-index': showWorkspaceId===i ? '99' : '1' }">
                     <div class="workspace" id="workspace" [ngStyle]="{ 'height': bigSize ? '100%' : '70%' }" [attr.key]="keyForRefresh">
-                        <div data-id="{{workspaceid}}" [attr.data-workspace]="workspaceId"></div>
+                        <div data-id="{{workspaceid}}" [attr.data-workspace]="workspaceid"></div>
                     </div>
                 </app-workspace>
-            </div>
+            </ng-container>
     </div>
     <div class="aside">
         <div>
@@ -16,7 +16,7 @@
             </app-workspace-form>
             <div *ngIf="isWorkspaceWorking" class="workspace-ids">
                 <div *ngFor="let workspace of workspaceIds; index as i">
-                    <button (click)="setCurrentWorkspace(i.toString())">{{workspace}}</button>
+                    <button (click)="setCurrentWorkspace(i)">{{workspace}}</button>
                 </div>
             </div>
             <div class="buttons">

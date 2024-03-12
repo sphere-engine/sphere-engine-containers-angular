@@ -40,10 +40,11 @@ export class AsideComponent implements OnInit {
   protected keyForRefresh: number = 1;
   protected showWorkspace: boolean = false;
   protected bigSize: boolean = true;
+  protected showWorkspaceId: number = 0;
 
-  public setCurrentWorkspace(id: string): void {
-    this.workspaceId = id;
-    this.workspaceService.changeWorkspace(id);
+  public setCurrentWorkspace(id: number): void {
+    this.showWorkspaceId = id;
+    // this.workspaceService.changeWorkspace(id.toString());
   }
 
   public resize(): void {
@@ -56,7 +57,8 @@ export class AsideComponent implements OnInit {
   }
 
   public createWorkspace(workspaceIds: string[]): void {
-    this.workspaceId = workspaceIds[0];
+    this.showWorkspaceId = 0;
+    this.workspaceId = workspaceIds[this.showWorkspaceId];
     this.workspaceIds = workspaceIds;
     this.workspaceService.createWorkspace(this.workspaceIds);
     this.showWorkspace = true;

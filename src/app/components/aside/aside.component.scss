@@ -3,10 +3,10 @@
     flex-direction: row;
 
     app-workspace {
-        // flex: 2;
-        width: 100%;
+        width: 66%;
         height: 100vh;
-
+        position: absolute;
+       
         .workspace {
             display: block;
         } 
@@ -18,6 +18,8 @@
 
         .workspace-for {
             height: 100%;
+            position: relative;
+
         }
     }
 
