@@ -16,17 +16,18 @@ export class WorkspaceService {
     return this.currentWorkspaceId;
   }
 
-  public getAccessToken(): string {
-    return this.accessToken;
+  public setCurrentWorkspaceId(id: string): void {
+    this.currentWorkspaceId = id;
   }
 
-  public changeWorkspace(id: string): void {
-    console.log('clicked');
+  public getAccessToken(): string {
+    return this.accessToken;
   }
 
   public createWorkspace(ids: string[]): void {
     this.working$.next(true);
     this.workspaceIds = ids;
+    this.currentWorkspaceId = ids[0];
   }
 
   public removeWorkspace(): void {
@@ -49,11 +50,12 @@ export class WorkspaceService {
     (textarea as HTMLInputElement).value = JSON.stringify(e.data);
   }
 
-  public subscribe(event: string): void {
+  public subscribe(event: string): string {
     console.log('Subscribed: ' + event);
     this.subscribedId = this.currentWorkspaceId;
     let workspace = window.SE.workspace(this.subscribedId);
     workspace.events.subscribe(event, this.handleChange);
+    return this.subscribedId;
   }
 
   public unsubscribe(event: string): void {

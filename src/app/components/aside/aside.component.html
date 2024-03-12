@@ -16,7 +16,7 @@
             </app-workspace-form>
             <div *ngIf="isWorkspaceWorking" class="workspace-ids">
                 <div *ngFor="let workspace of workspaceIds; index as i">
-                    <button (click)="setCurrentWorkspace(i)">{{workspace}}</button>
+                    <button (click)="setCurrentWorkspace(i)" [disabled]="showWorkspaceId===i">{{ showWorkspaceId===i ? "CURRENT: " + workspace : workspace }}</button>
                 </div>
             </div>
             <div class="buttons">
@@ -46,6 +46,7 @@
             <button class="btn-sub" (click)="subscribeEvent()" [disabled]="!isWorkspaceWorking || event==='' || subscribed">Subscribe</button>
             <button class="btn-sub" (click)="unsubscribeEvent()" [disabled]="!isWorkspaceWorking || event==='' || !subscribed">Unsubscribe</button>
             <div class="title">Event Result</div>
+            <div *ngIf="subscribed">{{ "Subscribed workspace: "  + subscribedId}}</div>
             <textarea class="event-response" id="event-response" disabled [value]="eventResponse"></textarea>
         </div>
     </div>

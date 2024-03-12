@@ -41,10 +41,12 @@ export class AsideComponent implements OnInit {
   protected showWorkspace: boolean = false;
   protected bigSize: boolean = true;
   protected showWorkspaceId: number = 0;
+  protected subscribedId: string = '';
 
   public setCurrentWorkspace(id: number): void {
     this.showWorkspaceId = id;
-    // this.workspaceService.changeWorkspace(id.toString());
+    this.workspaceId = this.workspaceIds[id];
+    this.workspaceService.setCurrentWorkspaceId(this.workspaceId);
   }
 
   public resize(): void {
@@ -77,11 +79,12 @@ export class AsideComponent implements OnInit {
     this.keyForRefresh++;
   }
   public subscribeEvent(): void {
-    this.workspaceService.subscribe(this.event);
+    this.subscribedId = this.workspaceService.subscribe(this.event);
     this.subscribed = true;
   }
   public unsubscribeEvent(): void {
     this.workspaceService.unsubscribe(this.event);
     this.subscribed = false;
+    this.subscribedId = '';
   }
 }
