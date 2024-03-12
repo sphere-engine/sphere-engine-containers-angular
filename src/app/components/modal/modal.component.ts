@@ -15,7 +15,6 @@ import {
 })
 export class ModalComponent implements OnChanges, OnDestroy {
   public ngOnChanges(): void {
-    // console.log(this.key);
     setTimeout(() => {
       this.workspace = window.SE.workspace('modal-workspace');
     }, 1000);

@@ -1,9 +1,13 @@
 <div class="container">
-    <app-workspace [workspaceId]="workspaceId" [ngStyle]="{ 'visibility': showWorkspace && isWorkspaceWorking ? 'visible' : 'hidden' }">
-        <div class="workspace" id="workspace" [ngStyle]="{ 'height': bigSize ? '100%' : '70%' }" [attr.key]="keyForRefresh">
-            <div id="seco-workspace" data-id="seco-workspace" [attr.data-workspace]="workspaceId"></div>
-        </div>
-    </app-workspace>
+    <div class="workspace-div">
+            <div class="workspace-for" *ngFor="let workspaceid of workspaceIds; index as i">
+                <app-workspace [workspaceId]="workspaceid"  [ngStyle]="{ 'visibility': showWorkspace && isWorkspaceWorking ? 'visible' : 'hidden' }">
+                    <div class="workspace" id="workspace" [ngStyle]="{ 'height': bigSize ? '100%' : '70%' }" [attr.key]="keyForRefresh">
+                        <div data-id="{{workspaceid}}" [attr.data-workspace]="workspaceId"></div>
+                    </div>
+                </app-workspace>
+            </div>
+    </div>
     <div class="aside">
         <div>
             <div class="title">Workspace Management</div>

@@ -20,40 +20,22 @@ export class WorkspaceService {
   }
 
   public changeWorkspace(id: string): void {
-    const workspace = window.SE?.workspace('seco-workspace');
-    workspace.destroy();
-
-    const element = document.createElement('div');
-    element.setAttribute('data-id', 'seco-workspace');
-    element.setAttribute('id', 'seco-workspace');
-    element.setAttribute('data-workspace', id);
-
-    const workspaceDiv = document.getElementById('workspace');
-    workspaceDiv?.appendChild(element);
-
-    window.SE?.workspace('seco-workspace');
+    console.log('clicked');
   }
 
   public createWorkspace(ids: string[]): void {
     this.working$.next(true);
     this.workspaceIds = ids;
-    const element = document.getElementById('seco-workspace');
-    element?.setAttribute('data-workspace', this.workspaceIds[0]);
-    window.SE?.workspace('seco-workspace');
   }
 
   public removeWorkspace(): void {
+    this.workspaceIds.forEach((id: string) => {
+      const workspace = window.SE?.workspace(id);
+      workspace.destroy();
+    });
     this.workspaceIds = [];
     this.currentWorkspaceId = '';
-    const workspace = window.SE?.workspace('seco-workspace');
 
-    const element = document.createElement('div');
-    element.setAttribute('data-id', 'seco-workspace');
-    element.setAttribute('id', 'seco-workspace');
-
-    workspace.destroy();
-    const workspaceDiv = document.getElementById('workspace');
-    workspaceDiv?.appendChild(element);
     this.working$.next(false);
   }
 
