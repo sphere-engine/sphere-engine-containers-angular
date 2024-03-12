@@ -15,8 +15,8 @@
                 <button class="btn-1" type="submit" [disabled]="isWorkspaceWorking">Create Workspace</button>
             </app-workspace-form>
             <div *ngIf="isWorkspaceWorking" class="workspace-ids">
-                <div *ngFor="let workspace of workspaceIds">
-                    <button (click)="setCurrentWorkspace(workspace)">{{workspace}}</button>
+                <div *ngFor="let workspace of workspaceIds; index as i">
+                    <button (click)="setCurrentWorkspace(i.toString())">{{workspace}}</button>
                 </div>
             </div>
             <div class="buttons">

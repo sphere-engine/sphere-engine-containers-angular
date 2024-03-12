@@ -10,5 +10,7 @@
     
         <button type="button" class="button-small-add" (click)="addId()">+</button>
       </div>
-      <ng-content></ng-content>
+      <ng-container *ngIf="workspaceIdForm.status === 'VALID' && workspaceIdForm.controls.ids.length > 0">
+        <ng-content></ng-content>
+      </ng-container>
 </form>

@@ -65,7 +65,6 @@ export class AsideComponent implements OnInit {
   public removeWorkspace(): void {
     this.workspaceId = '';
     this.workspaceIds = [];
-    this.isWorkspaceWorking = false;
     this.workspaceService.removeWorkspace();
   }
   public destroyWorkspace(): void {
