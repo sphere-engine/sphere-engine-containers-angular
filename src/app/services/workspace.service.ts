@@ -8,6 +8,7 @@ export class WorkspaceService {
   public working$ = new BehaviorSubject(false);
   private accessToken: string = '77f3a4eb6cb94f0381978bdc25f4d6e7';
   private currentWorkspaceId: string = '';
+  private subscribedId: string = '';
   private workspaceIds: string[] = [];
   public eventResponse$ = new Subject<string>();
 
@@ -50,13 +51,15 @@ export class WorkspaceService {
 
   public subscribe(event: string): void {
     console.log('Subscribed: ' + event);
-    let workspace = window.SE.workspace('seco-workspace');
+    this.subscribedId = this.currentWorkspaceId;
+    let workspace = window.SE.workspace(this.subscribedId);
     workspace.events.subscribe(event, this.handleChange);
   }
 
   public unsubscribe(event: string): void {
     console.log('Unsubscribed: ' + event);
-    let workspace = window.SE.workspace('seco-workspace');
+    let workspace = window.SE.workspace(this.subscribedId);
     workspace.events.unsubscribe(event, this.handleChange);
+    this.subscribedId = '';
   }
 }
