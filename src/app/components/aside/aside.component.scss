@@ -168,8 +168,14 @@
             min-height: 200px;
             overflow-y: auto;
         }
+
+        .btn-center {
+            display: flex;
+            justify-content: center;
+            width: 80%;
+        }
     
-        button {
+        .btn-sub {
             margin: 5px 0;
             color: white;
             border-radius: 10px;

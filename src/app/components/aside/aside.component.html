@@ -47,7 +47,10 @@
             <button class="btn-sub" (click)="unsubscribeEvent()" [disabled]="!isWorkspaceWorking || event==='' || !subscribed">Unsubscribe</button>
             <div class="title">Event Result</div>
             <div *ngIf="subscribed">{{ "Subscribed workspace: "  + subscribedId}}</div>
-            <textarea class="event-response" id="event-response" disabled [value]="eventResponse"></textarea>
+            <textarea class="event-response" #eventResponseTextarea id="event-response" disabled [(ngModel)]="eventResponse"></textarea>
+            <div class="btn-center">
+                <button (click)="clearEvent()">Clear event result</button>
+            </div>
         </div>
     </div>
 </div>

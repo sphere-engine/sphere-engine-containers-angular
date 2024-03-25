@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { WorkspaceService } from '../../services/workspace.service';
 
 @Component({
@@ -16,11 +16,11 @@ export class AsideComponent implements OnInit {
       },
     });
 
-    this.workspaceService.eventResponse$.subscribe({
-      next: (value) => {
-        this.eventResponse = value;
-      },
-    });
+    // this.workspaceService.eventResponse$.subscribe({
+    //   next: (value) => {
+    //     this.eventResponse = value;
+    //   },
+    // });
   }
 
   protected events: string[] = [
@@ -35,6 +35,7 @@ export class AsideComponent implements OnInit {
   protected showModal: boolean = false;
   protected event: string = '';
   protected eventResponse: string = '';
+  @ViewChild('eventResponseTextarea') eventResponseTextarea!: ElementRef;
   protected isWorkspaceWorking: boolean = false;
   protected subscribed: boolean = false;
   protected keyForRefresh: number = 1;
@@ -51,6 +52,10 @@ export class AsideComponent implements OnInit {
 
   public resize(): void {
     this.bigSize = !this.bigSize;
+  }
+
+  public clearEvent(): void {
+    this.eventResponseTextarea.nativeElement.value = '';
   }
 
   public displayModal(): void {

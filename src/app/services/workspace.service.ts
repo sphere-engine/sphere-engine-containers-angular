@@ -10,7 +10,7 @@ export class WorkspaceService {
   private currentWorkspaceId: string = '';
   private subscribedId: string = '';
   private workspaceIds: string[] = [];
-  public eventResponse$ = new Subject<string>();
+  // public eventResponse$ = new Subject<string>();
 
   public getWorkspaceId(): string {
     return this.currentWorkspaceId;
