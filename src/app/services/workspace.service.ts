@@ -47,12 +47,15 @@ export class WorkspaceService {
     // jak próbuje przypisać tu e.data do Subject to otrzymuje cannot read null :(
     // this.eventResponse$.next(JSON.stringify(e.data));
     const textarea = document.getElementById('event-response');
-    (textarea as HTMLInputElement).value = JSON.stringify(e.data);
+    (textarea as HTMLInputElement).value += '=======NEXT EVENT========\n';
+    (textarea as HTMLInputElement).value += JSON.stringify(e.data, null, 2);
+    (textarea as HTMLInputElement).value += '\n';
   }
 
   public subscribe(event: string): string {
     console.log('Subscribed: ' + event);
     this.subscribedId = this.currentWorkspaceId;
+    console.log(this.subscribedId);
     let workspace = window.SE.workspace(this.subscribedId);
     workspace.events.subscribe(event, this.handleChange);
     return this.subscribedId;

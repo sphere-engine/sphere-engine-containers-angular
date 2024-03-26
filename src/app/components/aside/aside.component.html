@@ -38,13 +38,21 @@
         </div>
         <div class="events-form">
             <div class="title">Events</div>
-            <select [(ngModel)]="event" [disabled]="!isWorkspaceWorking || subscribed">
+            <ng-container *ngFor="let workspace of workspaceIds; index as i">
+                <div class="events-grid" *ngIf="showWorkspaceId===i">
+                    <div *ngFor="let event of events">
+                        <label for="{{event.name}}">{{event.name}}</label>
+                        <input id="{{event.name}}" [(ngModel)]="event.subscribed" type="checkbox" [disabled]="subscribed"/>
+                    </div>
+                </div>
+            </ng-container>
+            <!-- <select [(ngModel)]="event" [disabled]="!isWorkspaceWorking || subscribed">
                 <option value="" disabled>-Chose event-</option>
                 <option *ngFor="let event of events" [value]="event">
                     {{ event }}
-            </select>
-            <button class="btn-sub" (click)="subscribeEvent()" [disabled]="!isWorkspaceWorking || event==='' || subscribed">Subscribe</button>
-            <button class="btn-sub" (click)="unsubscribeEvent()" [disabled]="!isWorkspaceWorking || event==='' || !subscribed">Unsubscribe</button>
+            </select> -->
+            <button class="btn-sub" (click)="subscribeEvent()" [disabled]="!isWorkspaceWorking  || subscribed">Subscribe</button>
+            <button class="btn-sub" (click)="unsubscribeEvent()" [disabled]="!isWorkspaceWorking  || !subscribed">Unsubscribe</button>
             <div class="title">Event Result</div>
             <div *ngIf="subscribed">{{ "Subscribed workspace: "  + subscribedId}}</div>
             <textarea class="event-response" #eventResponseTextarea id="event-response" disabled [(ngModel)]="eventResponse"></textarea>

@@ -23,17 +23,16 @@ export class AsideComponent implements OnInit {
     // });
   }
 
-  protected events: string[] = [
-    'afterScenarioExecution',
-    'afterScenarioExecutionExt',
-    'fileContent',
-    'stageStream',
+  protected events: { name: string; subscribed: boolean }[] = [
+    { name: 'afterScenarioExecution', subscribed: false },
+    { name: 'afterScenarioExecutionExt', subscribed: false },
+    { name: 'fileContent', subscribed: false },
+    { name: 'stageStream', subscribed: false },
   ];
 
   protected workspaceIds: string[] = [];
   protected workspaceId: string = '';
   protected showModal: boolean = false;
-  protected event: string = '';
   protected eventResponse: string = '';
   @ViewChild('eventResponseTextarea') eventResponseTextarea!: ElementRef;
   protected isWorkspaceWorking: boolean = false;
@@ -72,6 +71,9 @@ export class AsideComponent implements OnInit {
   }
 
   public removeWorkspace(): void {
+    this.events.forEach((x) => {
+      x.subscribed = false;
+    });
     this.workspaceId = '';
     this.workspaceIds = [];
     this.workspaceService.removeWorkspace();
@@ -84,12 +86,20 @@ export class AsideComponent implements OnInit {
     this.keyForRefresh++;
   }
   public subscribeEvent(): void {
-    this.subscribedId = this.workspaceService.subscribe(this.event);
-    this.subscribed = true;
+    this.events.forEach((x) => {
+      if (x.subscribed) {
+        this.subscribedId = this.workspaceService.subscribe(x.name);
+        this.subscribed = true;
+      }
+    });
   }
   public unsubscribeEvent(): void {
-    this.workspaceService.unsubscribe(this.event);
-    this.subscribed = false;
-    this.subscribedId = '';
+    this.events.forEach((x) => {
+      if (x.subscribed) {
+        this.workspaceService.unsubscribe(x.name);
+        this.subscribed = false;
+        this.subscribedId = '';
+      }
+    });
   }
 }
