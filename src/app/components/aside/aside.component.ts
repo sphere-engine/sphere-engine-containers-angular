@@ -95,11 +95,9 @@ export class AsideComponent implements OnInit {
   }
   public unsubscribeEvent(): void {
     this.events.forEach((x) => {
-      if (x.subscribed) {
-        this.workspaceService.unsubscribe(x.name);
-        this.subscribed = false;
-        this.subscribedId = '';
-      }
+      this.workspaceService.unsubscribe(x.name);
+      this.subscribed = false;
+      this.subscribedId = '';
     });
   }
 }

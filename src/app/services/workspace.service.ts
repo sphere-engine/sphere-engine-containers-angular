@@ -41,7 +41,7 @@ export class WorkspaceService {
     this.working$.next(false);
   }
 
-  public handleChange(e: any): void {
+  handleChange = (e: any): void => {
     console.log(JSON.stringify(e.data));
     // nie podoba mi się to że handler musi ustawiać wartość elementu w DOM
     // jak próbuje przypisać tu e.data do Subject to otrzymuje cannot read null :(
@@ -50,7 +50,7 @@ export class WorkspaceService {
     (textarea as HTMLInputElement).value += '=======NEXT EVENT========\n';
     (textarea as HTMLInputElement).value += JSON.stringify(e.data, null, 2);
     (textarea as HTMLInputElement).value += '\n';
-  }
+  };
 
   public subscribe(event: string): string {
     console.log('Subscribed: ' + event);
@@ -65,6 +65,5 @@ export class WorkspaceService {
     console.log('Unsubscribed: ' + event);
     let workspace = window.SE.workspace(this.subscribedId);
     workspace.events.unsubscribe(event, this.handleChange);
-    this.subscribedId = '';
   }
 }
