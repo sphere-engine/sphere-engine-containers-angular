@@ -1,9 +1,9 @@
 <div class="container">
     <div class="workspace-div">
-            <ng-container class="workspace-for" *ngFor="let workspaceid of workspaceIds; index as i">
-                <app-workspace [workspaceId]="workspaceid"  [ngStyle]="{ 'visibility': showWorkspaceId===i && showWorkspace && isWorkspaceWorking ? 'visible' : 'hidden', 'z-index': showWorkspaceId===i ? '99' : '1' }">
-                    <div class="workspace" id="workspace" [ngStyle]="{ 'height': bigSize ? '100%' : '70%' }" [attr.key]="keyForRefresh">
-                        <div data-id="{{workspaceid}}" [attr.data-workspace]="workspaceid"></div>
+            <ng-container class="workspace-for" *ngFor="let workspace of workspaces; index as i">
+                <app-workspace [workspaceId]="workspace.id" [ngStyle]="{ 'visibility': showWorkspaceId===i && workspace.show && isWorkspaceWorking ? 'visible' : 'hidden', 'z-index': showWorkspaceId===i ? '99' : '1' }">
+                    <div class="workspace" id="workspace" [ngStyle]="{ 'height': workspace.bigSize ? '100%' : '70%' }" [attr.key]="keyForRefresh">
+                        <div data-id="{{workspace.id}}" [attr.data-workspace]="workspace.id"></div>
                     </div>
                 </app-workspace>
             </ng-container>
@@ -15,32 +15,34 @@
                 <button class="btn-1" type="submit" [disabled]="isWorkspaceWorking">Create Workspace</button>
             </app-workspace-form>
             <div *ngIf="isWorkspaceWorking" class="workspace-ids">
-                <div *ngFor="let workspace of workspaceIds; index as i">
-                    <button (click)="setCurrentWorkspace(i)" [disabled]="showWorkspaceId===i">{{ showWorkspaceId===i ? "CURRENT: " + workspace : workspace }}</button>
+                <div *ngFor="let workspace of workspaces; index as i">
+                    <button (click)="setCurrentWorkspace(i)" [disabled]="showWorkspaceId===i">{{ showWorkspaceId===i ? "CURRENT: " + workspace.id : workspace.id }}</button>
                 </div>
             </div>
-            <div class="buttons">
-                <div class="workspace-btns">
-                    <button class="btn-2" (click)="removeWorkspace()" [disabled]="!isWorkspaceWorking">Remove Workspace</button>
-                    <button class="btn-3" (click)="destroyWorkspace()" [disabled]="!isWorkspaceWorking || !showWorkspace">Hide Workspace</button>
-                    <button class="btn-4" (click)="renderWorkspace()" [disabled]="!isWorkspaceWorking || showWorkspace">Show Workspace</button>
-                    <button class="btn-5" (click)="resize()" [disabled]="!isWorkspaceWorking || !showWorkspace">Resize </button>
-                </div>
-                <div class="aside-modal">
-                    <button (click)="displayModal()" class="btn-modal" [disabled]="!isWorkspaceWorking">Open in modal</button>
-                    <app-modal *ngIf="showModal" [workspaceId]="workspaceId" [key]="keyForRefresh">
-                        <div class="modal-close-btn" #modalDiv>
-                            <button (click)="displayModal()">Close modal</button>
-                        </div>
-                    </app-modal>
-                </div>
+            <div class="buttons" *ngFor="let workspace of workspaces; index as i">
+                <ng-container *ngIf="workspaces[i]?.id===workspaceId">
+                    <div class="workspace-btns">
+                        <button class="btn-2" (click)="removeWorkspace(workspaces[i].id)" [disabled]="!isWorkspaceWorking">Remove Workspace</button>
+                        <button class="btn-3" (click)="destroyWorkspace(i)" [disabled]="!isWorkspaceWorking || !workspace.show">Hide Workspace</button>
+                        <button class="btn-4" (click)="renderWorkspace(i)" [disabled]="!isWorkspaceWorking || workspace.show">Show Workspace</button>
+                        <button class="btn-5" (click)="resize(i)" [disabled]="!isWorkspaceWorking || !workspace.show">Resize </button>
+                    </div>
+                    <div class="aside-modal">
+                        <button (click)="displayModal()" class="btn-modal" [disabled]="!isWorkspaceWorking">Open in modal</button>
+                        <app-modal *ngIf="showModal" [workspaceId]="workspaceId" [key]="keyForRefresh">
+                            <div class="modal-close-btn" #modalDiv>
+                                <button (click)="displayModal()">Close modal</button>
+                            </div>
+                        </app-modal>
+                    </div>
+                </ng-container>
             </div>
         </div>
         <div class="events-form">
             <div class="title">Events</div>
-            <ng-container *ngFor="let workspace of workspaceIds; index as i">
+            <ng-container *ngFor="let workspace of workspaces; index as i">
                 <div class="events-grid" *ngIf="showWorkspaceId===i">
-                    <div *ngFor="let event of events">
+                    <div *ngFor="let event of workspaces[i].events">
                         <label for="{{event.name}}">{{event.name}}</label>
                         <input id="{{event.name}}" [(ngModel)]="event.subscribed" type="checkbox" [disabled]="subscribed"/>
                     </div>

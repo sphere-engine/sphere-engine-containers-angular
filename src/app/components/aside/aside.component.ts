@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { WorkspaceService } from '../../services/workspace.service';
+import { Event, Workspace } from 'src/app/models/workspace.model';
 
 @Component({
   selector: 'app-aside',
@@ -23,14 +24,14 @@ export class AsideComponent implements OnInit {
     // });
   }
 
-  protected events: { name: string; subscribed: boolean }[] = [
+  protected events: Event[] = [
     { name: 'afterScenarioExecution', subscribed: false },
     { name: 'afterScenarioExecutionExt', subscribed: false },
     { name: 'fileContent', subscribed: false },
     { name: 'stageStream', subscribed: false },
   ];
 
-  protected workspaceIds: string[] = [];
+  protected workspaces: Workspace[] = [];
   protected workspaceId: string = '';
   protected showModal: boolean = false;
   protected eventResponse: string = '';
@@ -38,19 +39,18 @@ export class AsideComponent implements OnInit {
   protected isWorkspaceWorking: boolean = false;
   protected subscribed: boolean = false;
   protected keyForRefresh: number = 1;
-  protected showWorkspace: boolean = false;
   protected bigSize: boolean = true;
   protected showWorkspaceId: number = 0;
   protected subscribedId: string = '';
 
   public setCurrentWorkspace(id: number): void {
     this.showWorkspaceId = id;
-    this.workspaceId = this.workspaceIds[id];
+    this.workspaceId = this.workspaces[id].id;
     this.workspaceService.setCurrentWorkspaceId(this.workspaceId);
   }
 
-  public resize(): void {
-    this.bigSize = !this.bigSize;
+  public resize(id: number): void {
+    this.workspaces[id].bigSize = !this.workspaces[id].bigSize;
   }
 
   public clearEvent(): void {
@@ -65,24 +65,34 @@ export class AsideComponent implements OnInit {
   public createWorkspace(workspaceIds: string[]): void {
     this.showWorkspaceId = 0;
     this.workspaceId = workspaceIds[this.showWorkspaceId];
-    this.workspaceIds = workspaceIds;
-    this.workspaceService.createWorkspace(this.workspaceIds);
-    this.showWorkspace = true;
+    this.workspaces = workspaceIds.map((x) => ({
+      id: x,
+      bigSize: true,
+      events: [
+        { name: 'afterScenarioExecution', subscribed: false },
+        { name: 'afterScenarioExecutionExt', subscribed: false },
+        { name: 'fileContent', subscribed: false },
+        { name: 'stageStream', subscribed: false },
+      ],
+      show: false,
+    }));
+    console.log(this.workspaces);
+    this.workspaceService.createWorkspace(this.workspaces);
   }
 
-  public removeWorkspace(): void {
-    this.events.forEach((x) => {
-      x.subscribed = false;
-    });
+  public removeWorkspace(i: string): void {
+    this.workspaceService.removeWorkspace(i);
+    this.workspaces = this.workspaces.filter((x) => x.id !== i);
+    console.log(this.workspaces);
     this.workspaceId = '';
-    this.workspaceIds = [];
-    this.workspaceService.removeWorkspace();
+    this.showWorkspaceId = -1;
+    this.keyForRefresh += 1;
   }
-  public destroyWorkspace(): void {
-    this.showWorkspace = false;
+  public destroyWorkspace(i: number): void {
+    this.workspaces[i].show = false;
   }
-  public renderWorkspace(): void {
-    this.showWorkspace = true;
+  public renderWorkspace(i: number): void {
+    this.workspaces[i].show = true;
     this.keyForRefresh++;
   }
   public subscribeEvent(): void {
