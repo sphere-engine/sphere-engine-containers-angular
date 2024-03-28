@@ -2,6 +2,7 @@ export interface Workspace {
   readonly id: string;
   bigSize: boolean;
   show: boolean;
+  subscribed: boolean;
   readonly events: Event[];
 }
 

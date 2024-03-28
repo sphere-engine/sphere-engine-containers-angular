@@ -24,29 +24,24 @@ export class AsideComponent implements OnInit {
     // });
   }
 
-  protected events: Event[] = [
-    { name: 'afterScenarioExecution', subscribed: false },
-    { name: 'afterScenarioExecutionExt', subscribed: false },
-    { name: 'fileContent', subscribed: false },
-    { name: 'stageStream', subscribed: false },
-  ];
-
   protected workspaces: Workspace[] = [];
   protected workspaceId: string = '';
   protected showModal: boolean = false;
   protected eventResponse: string = '';
   @ViewChild('eventResponseTextarea') eventResponseTextarea!: ElementRef;
   protected isWorkspaceWorking: boolean = false;
-  protected subscribed: boolean = false;
+  protected isCurrentSubscribed: boolean = false;
+  protected anySubscribed: boolean = false;
   protected keyForRefresh: number = 1;
   protected bigSize: boolean = true;
   protected showWorkspaceId: number = 0;
-  protected subscribedId: string = '';
+  protected subscribedId: string[] = [];
 
   public setCurrentWorkspace(id: number): void {
     this.showWorkspaceId = id;
     this.workspaceId = this.workspaces[id].id;
     this.workspaceService.setCurrentWorkspaceId(this.workspaceId);
+    this.isCurrentSubscribed = this.workspaces[id].subscribed;
   }
 
   public resize(id: number): void {
@@ -74,16 +69,16 @@ export class AsideComponent implements OnInit {
         { name: 'fileContent', subscribed: false },
         { name: 'stageStream', subscribed: false },
       ],
+      subscribed: false,
       show: false,
     }));
-    console.log(this.workspaces);
     this.workspaceService.createWorkspace(this.workspaces);
   }
 
   public removeWorkspace(i: string): void {
+    this.unsubscribeEvent();
     this.workspaceService.removeWorkspace(i);
     this.workspaces = this.workspaces.filter((x) => x.id !== i);
-    console.log(this.workspaces);
     this.workspaceId = '';
     this.showWorkspaceId = -1;
     this.keyForRefresh += 1;
@@ -96,18 +91,27 @@ export class AsideComponent implements OnInit {
     this.keyForRefresh++;
   }
   public subscribeEvent(): void {
-    this.events.forEach((x) => {
+    this.workspaces[this.showWorkspaceId].events.forEach((x) => {
       if (x.subscribed) {
-        this.subscribedId = this.workspaceService.subscribe(x.name);
-        this.subscribed = true;
+        this.workspaceService.subscribe(x.name);
+        this.workspaces[this.showWorkspaceId].subscribed = true;
+        this.anySubscribed = true;
+        this.isCurrentSubscribed = true;
       }
     });
+    this.subscribedId.push(this.workspaceId);
   }
   public unsubscribeEvent(): void {
-    this.events.forEach((x) => {
+    this.workspaces[this.showWorkspaceId].events.forEach((x) => {
       this.workspaceService.unsubscribe(x.name);
-      this.subscribed = false;
-      this.subscribedId = '';
+      this.workspaces[this.showWorkspaceId].subscribed = false;
+      this.isCurrentSubscribed = false;
+      if (this.subscribedId.length === 0) {
+        this.anySubscribed = false;
+      }
+      this.subscribedId = this.subscribedId.filter(
+        (ele) => ele !== this.workspaceId
+      );
     });
   }
 }

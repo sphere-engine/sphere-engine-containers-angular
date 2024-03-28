@@ -9,7 +9,6 @@ export class WorkspaceService {
   public working$ = new BehaviorSubject(false);
   private accessToken: string = '77f3a4eb6cb94f0381978bdc25f4d6e7';
   private currentWorkspaceId: string = '';
-  private subscribedId: string = '';
   private workspaces: Workspace[] = [];
   private ws: any[] = [];
   // public eventResponse$ = new Subject<string>();
@@ -59,17 +58,19 @@ export class WorkspaceService {
     (textarea as HTMLInputElement).value += '\n';
   };
 
-  public subscribe(event: string): string {
+  public subscribe(event: string): void {
     console.log('Subscribed: ' + event);
-    this.subscribedId = this.currentWorkspaceId;
-    let workspace = window.SE.workspace(this.subscribedId);
-    workspace.events.subscribe(event, this.handleChange);
-    return this.subscribedId;
+    const index = this.workspaces.findIndex(
+      (x) => x.id === this.currentWorkspaceId
+    );
+    this.ws[index].events.subscribe(event, this.handleChange);
   }
 
   public unsubscribe(event: string): void {
     console.log('Unsubscribed: ' + event);
-    let workspace = window.SE.workspace(this.subscribedId);
-    workspace.events.unsubscribe(event, this.handleChange);
+    const index = this.workspaces.findIndex(
+      (x) => x.id === this.currentWorkspaceId
+    );
+    this.ws[index].events.unsubscribe(event, this.handleChange);
   }
 }

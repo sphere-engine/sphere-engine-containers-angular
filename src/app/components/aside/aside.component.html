@@ -44,7 +44,7 @@
                 <div class="events-grid" *ngIf="showWorkspaceId===i">
                     <div *ngFor="let event of workspaces[i].events">
                         <label for="{{event.name}}">{{event.name}}</label>
-                        <input id="{{event.name}}" [(ngModel)]="event.subscribed" type="checkbox" [disabled]="subscribed"/>
+                        <input id="{{event.name}}" [(ngModel)]="event.subscribed" type="checkbox" [disabled]="isCurrentSubscribed"/>
                     </div>
                 </div>
             </ng-container>
@@ -53,10 +53,13 @@
                 <option *ngFor="let event of events" [value]="event">
                     {{ event }}
             </select> -->
-            <button class="btn-sub" (click)="subscribeEvent()" [disabled]="!isWorkspaceWorking  || subscribed">Subscribe</button>
-            <button class="btn-sub" (click)="unsubscribeEvent()" [disabled]="!isWorkspaceWorking  || !subscribed">Unsubscribe</button>
+            <button class="btn-sub" (click)="subscribeEvent()" [disabled]="!isWorkspaceWorking  || isCurrentSubscribed || workspaceId===''">Subscribe</button>
+            <button class="btn-sub" (click)="unsubscribeEvent()" [disabled]="!isWorkspaceWorking  || !isCurrentSubscribed || workspaceId===''">Unsubscribe</button>
             <div class="title">Event Result</div>
-            <div *ngIf="subscribed">{{ "Subscribed workspace: "  + subscribedId}}</div>
+            <ul *ngIf="anySubscribed">
+                <li>Subscribed workspaces:</li>
+                <li *ngFor="let id of subscribedId">{{id}}</li>
+            </ul>
             <textarea class="event-response" #eventResponseTextarea id="event-response" disabled [(ngModel)]="eventResponse"></textarea>
             <div class="btn-center">
                 <button (click)="clearEvent()">Clear event result</button>
