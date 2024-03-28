@@ -60,7 +60,7 @@ export class AsideComponent implements OnInit {
   public createWorkspace(workspaceIds: string[]): void {
     this.showWorkspaceId = 0;
     this.workspaceId = workspaceIds[this.showWorkspaceId];
-    this.workspaces = workspaceIds.map((x) => ({
+    this.workspaces = workspaceIds.map((x, i) => ({
       id: x,
       bigSize: true,
       events: [
@@ -70,7 +70,7 @@ export class AsideComponent implements OnInit {
         { name: 'stageStream', subscribed: false },
       ],
       subscribed: false,
-      show: false,
+      show: true,
     }));
     this.workspaceService.createWorkspace(this.workspaces);
   }
@@ -103,7 +103,9 @@ export class AsideComponent implements OnInit {
   }
   public unsubscribeEvent(): void {
     this.workspaces[this.showWorkspaceId].events.forEach((x) => {
-      this.workspaceService.unsubscribe(x.name);
+      if (x.subscribed) {
+        this.workspaceService.unsubscribe(x.name);
+      }
       this.workspaces[this.showWorkspaceId].subscribed = false;
       this.isCurrentSubscribed = false;
       if (this.subscribedId.length === 0) {

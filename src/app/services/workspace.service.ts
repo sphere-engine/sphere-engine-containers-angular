@@ -37,7 +37,11 @@ export class WorkspaceService {
 
   public removeWorkspace(i: string): void {
     const workspaceToRemove = this.workspaces.findIndex((x) => x.id === i);
-    this.ws[workspaceToRemove].destroy();
+    try {
+      this.ws[workspaceToRemove].destroy();
+    } catch (err) {
+      console.log('Invalid workspace removed');
+    }
     this.ws = this.ws.filter((x, id) => id !== workspaceToRemove);
     this.workspaces = this.workspaces.filter((x) => x.id !== i);
     if (this.workspaces.length === 0) {

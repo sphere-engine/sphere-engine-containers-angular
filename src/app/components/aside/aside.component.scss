@@ -162,6 +162,10 @@
     .events-form {
         display: block;
 
+        ul {
+            list-style-type: none;
+        }
+
         .events-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);

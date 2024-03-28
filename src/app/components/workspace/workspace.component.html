@@ -1,1 +1,6 @@
-<ng-content></ng-content>
+<div class="ws">
+    <div class="load" *ngIf="notLoaded">
+        <button class="btn" (click)="load()">Load workspace with id: {{workspaceId}}</button>
+    </div>
+    <ng-content class="workspace"></ng-content>
+</div>
