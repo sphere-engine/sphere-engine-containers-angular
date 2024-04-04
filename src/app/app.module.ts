@@ -9,15 +9,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './components/modal/modal.component';
 import { WorkspaceFormComponent } from './components/workspace-form/workspace-form.component';
+import { WorkspaceSeModule } from 'projects/workspace-se/src/public-api';
+import { LibraryTestComponent } from './components/library-test/library-test.component';
 
 @NgModule({
-  declarations: [AppComponent, AsideComponent, WorkspaceComponent, ModalComponent, WorkspaceFormComponent],
+  declarations: [
+    AppComponent,
+    AsideComponent,
+    WorkspaceComponent,
+    ModalComponent,
+    WorkspaceFormComponent,
+    LibraryTestComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    WorkspaceSeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

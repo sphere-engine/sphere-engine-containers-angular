@@ -101,6 +101,39 @@
           }
         }
       }
+    },
+    "workspace-se": {
+      "projectType": "library",
+      "root": "projects/workspace-se",
+      "sourceRoot": "projects/workspace-se/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/workspace-se/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/workspace-se/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/workspace-se/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/workspace-se/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   }
 }
