@@ -1,1 +1,10 @@
-<div>test</div>
+<div *ngIf="!loaded" class="form">
+    <input [(ngModel)]="workspaceId" placeholder="workspace id..."/>
+    <button [disabled]="!(workspaceId.length>0)" (click)="load()">Load workspace</button>
+</div>
+<div *ngIf="loaded" class="ws">
+    <div>{{workspaceId}}</div>
+    <div class="workspace" id="workspace">
+        <div data-id="{{workspaceId}}" [attr.data-workspace]="workspaceId"></div>
+    </div>
+</div>
