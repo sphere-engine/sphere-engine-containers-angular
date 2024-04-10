@@ -1,10 +1,13 @@
-<div *ngIf="!loaded" class="form">
-    <input [(ngModel)]="workspaceId" placeholder="workspace id..."/>
-    <button [disabled]="!(workspaceId.length>0)" (click)="load()">Load workspace</button>
+<div *ngIf="!loaded && workspaceId===''" class="form">
+    <input [(ngModel)]="inputVal" placeholder="workspace id..."/>
+    <button [disabled]="!(inputVal.length>0)" (click)="setWorkspaceId()">Set workspace id</button>
 </div>
-<div *ngIf="loaded" class="ws">
-    <div>{{workspaceId}}</div>
-    <div class="workspace" id="workspace">
+<div *ngIf="!loaded && workspaceId!==''" class="load-btn">
+    <button (click)="load()">Load workspace</button>
+</div>
+<div class="ws">
+    <div *ngIf="loaded">{{workspaceId}}</div>
+    <div class="workspace" id="workspace" [ngStyle]="!loaded ? {'height': 0} : {}">
         <div data-id="{{workspaceId}}" [attr.data-workspace]="workspaceId"></div>
     </div>
 </div>

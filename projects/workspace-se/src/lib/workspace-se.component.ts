@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, ElementRef } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 
 declare global {
   interface Window {
@@ -35,13 +42,20 @@ export class WorkspaceSeComponent implements AfterViewInit {
     this.elementRef.nativeElement.appendChild(s);
   }
 
-  protected workspaceId: string = '';
+  @Input() public workspaceId: string = '';
+  @Output() public setWorkspace = new EventEmitter<any>();
+  protected inputVal: string = '';
   protected loaded: boolean = false;
   protected workspace: any;
+
+  public setWorkspaceId(): void {
+    this.workspaceId = this.inputVal;
+    this.inputVal = '';
+  }
+
   public load(): void {
     this.loaded = true;
-    setTimeout(() => {
-      this.workspace = window.SE.workspace(this.workspaceId);
-    }, 1000);
+    this.workspace = window.SE.workspace(this.workspaceId);
+    this.setWorkspace.emit(this.workspace);
   }
 }

@@ -1,24 +1,25 @@
 # WorkspaceSe
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
+### Getting started
 
-## Code scaffolding
+import package with
 
-Run `ng generate component component-name --project workspace-se` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project workspace-se`.
-> Note: Don't forget to add `--project workspace-se` or else it will be added to the default project in your `angular.json` file. 
+```ts
+import { WorkspaceSeModule } from "workspace-se";
+```
 
-## Build
+and insert in app.module.ts:
 
-Run `ng build workspace-se` to build the project. The build artifacts will be stored in the `dist/` directory.
+```ts
+...
+imports: [
+    WorkspaceSeModule
+],
+...
+```
 
-## Publishing
+and then you can use that in app.html:
 
-After building your library with `ng build workspace-se`, go to the dist folder `cd dist/workspace-se` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test workspace-se` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```html
+<lib-workspace-se></lib-workspace-se>
+```

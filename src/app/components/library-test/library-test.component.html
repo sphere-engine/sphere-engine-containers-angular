@@ -1,1 +1,5 @@
-<lib-workspace-se></lib-workspace-se>
+<lib-workspace-se (setWorkspace)="setWorkspace($event)" [workspaceId]="id"></lib-workspace-se>
+
+<div *ngIf="workspaces.length>0">
+    <button (click)="subscribe()">subscribe</button>
+</div>
