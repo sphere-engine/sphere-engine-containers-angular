@@ -9,8 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './components/modal/modal.component';
 import { WorkspaceFormComponent } from './components/workspace-form/workspace-form.component';
-import { WorkspaceSeModule } from 'projects/workspace-se/src/public-api';
 import { LibraryTestComponent } from './components/library-test/library-test.component';
+// import { WorkspaceSeModule } from 'projects/workspace-se/src/public-api';
+import { WorkspaceSeModule } from 'workspace-se';
 
 @NgModule({
   declarations: [

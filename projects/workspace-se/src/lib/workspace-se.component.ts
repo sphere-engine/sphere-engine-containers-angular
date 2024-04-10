@@ -47,6 +47,7 @@ export class WorkspaceSeComponent implements AfterViewInit {
   protected inputVal: string = '';
   protected loaded: boolean = false;
   protected workspace: any;
+  @Input() public workspaceSize: string = '50%';
 
   public setWorkspaceId(): void {
     this.workspaceId = this.inputVal;

@@ -21,9 +21,16 @@ app-modal {
         width: 100vw;
         height: 80vh;
     }
+    lib-workspace-se{
+        .workspace {
+            height: 70vh !important;
+        }
+    }
     .modal-close-btn {
+        position: absolute;
+        bottom: 80px;
+        width: 100%;
         display: flex;
         justify-content: center;
-        align-items: center;
     }
 }

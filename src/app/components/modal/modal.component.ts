@@ -13,15 +13,15 @@ import {
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements OnChanges, OnDestroy {
-  public ngOnChanges(): void {
-    setTimeout(() => {
-      this.workspace = window.SE.workspace('modal-workspace');
-    }, 1000);
+export class ModalComponent implements OnDestroy {
+  public ngOnDestroy(): void {
+    if (this.workspace) {
+      this.workspace.destroy();
+    }
   }
 
-  public ngOnDestroy(): void {
-    this.workspace.destroy();
+  public setCurrentWorkspace(ws: any): void {
+    this.workspace = ws;
   }
 
   protected workspace: any = null;

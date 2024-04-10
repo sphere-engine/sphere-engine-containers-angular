@@ -37,6 +37,10 @@ export class AsideComponent implements OnInit {
   protected showWorkspaceId: number = 0;
   protected subscribedId: string[] = [];
 
+  public addWorkspace(ws: any): void {
+    this.workspaceService.addWorkspace(ws);
+  }
+
   public setCurrentWorkspace(id: number): void {
     this.showWorkspaceId = id;
     this.workspaceId = this.workspaces[id].id;
