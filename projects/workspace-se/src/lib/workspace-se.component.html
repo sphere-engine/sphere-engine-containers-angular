@@ -3,11 +3,13 @@
     <button [disabled]="!(inputVal.length>0)" (click)="setWorkspaceId()">Set workspace id</button>
 </div>
 <div *ngIf="!loaded && workspaceId!==''" class="load-btn">
-    <button (click)="load()">Load workspace</button>
+    <div class="row">
+        <button (click)="load()">Load workspace</button>
+    </div>
 </div>
 <div class="ws">
-    <div *ngIf="loaded">{{workspaceId}}</div>
-    <div class="workspace" id="workspace" [ngStyle]="!loaded ? {'height': 0} : {}">
-        <div data-id="{{workspaceId}}" [attr.data-workspace]="workspaceId"></div>
+    <div *ngIf="loaded">{{ isModal ? 'modal: ' + workspaceId : workspaceId}}</div>
+    <div class="workspace" id="workspace" [ngStyle]="!loaded ? {'height': 0} : {'height' : workspaceSize}">
+        <div [attr.data-id]="isModal ? 'modal-'+workspaceId : workspaceId" [attr.data-workspace]="workspaceId"></div>
     </div>
 </div>

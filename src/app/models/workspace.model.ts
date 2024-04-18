@@ -3,6 +3,7 @@ export interface Workspace {
   bigSize: boolean;
   show: boolean;
   subscribed: boolean;
+  loaded: boolean;
   readonly events: Event[];
 }
 

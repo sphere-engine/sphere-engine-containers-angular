@@ -36,12 +36,24 @@ export class AsideComponent implements OnInit {
   protected bigSize: boolean = true;
   protected showWorkspaceId: number = 0;
   protected subscribedId: string[] = [];
+  protected isCurrentLoaded = false;
+
+  public addWorkspace(ws: any): void {
+    this.workspaces.map((x) => {
+      if (x.id === ws.id) {
+        x.loaded = true;
+        this.isCurrentLoaded = true;
+      }
+    });
+    this.workspaceService.addWorkspace(ws);
+  }
 
   public setCurrentWorkspace(id: number): void {
     this.showWorkspaceId = id;
     this.workspaceId = this.workspaces[id].id;
     this.workspaceService.setCurrentWorkspaceId(this.workspaceId);
     this.isCurrentSubscribed = this.workspaces[id].subscribed;
+    this.isCurrentLoaded = this.workspaces[id].loaded;
   }
 
   public resize(id: number): void {
@@ -71,6 +83,7 @@ export class AsideComponent implements OnInit {
       ],
       subscribed: false,
       show: true,
+      loaded: false,
     }));
     this.workspaceService.createWorkspace(this.workspaces);
   }

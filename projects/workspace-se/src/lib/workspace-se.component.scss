@@ -17,10 +17,15 @@
 }
 
 .load-btn {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    .row {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 .ws {
@@ -30,7 +35,6 @@
     align-items: center;
 
     .workspace {
-        width: 95vw;
-        height: 90vh;
+        width: 95%;
     }
 }

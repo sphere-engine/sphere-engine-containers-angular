@@ -4,6 +4,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
   Output,
 } from '@angular/core';
 
@@ -21,7 +22,7 @@ declare global {
 export class WorkspaceSeComponent implements AfterViewInit {
   constructor(private elementRef: ElementRef) {}
 
-  ngAfterViewInit() {
+  public ngAfterViewInit() {
     var s = document.createElement('script');
     s.type = 'text/javascript';
     s.text = `(function(d, s, id){
@@ -43,10 +44,12 @@ export class WorkspaceSeComponent implements AfterViewInit {
   }
 
   @Input() public workspaceId: string = '';
+  @Input() public isModal: boolean = false;
   @Output() public setWorkspace = new EventEmitter<any>();
   protected inputVal: string = '';
   protected loaded: boolean = false;
   protected workspace: any;
+  @Input() public workspaceSize: string = '50%';
 
   public setWorkspaceId(): void {
     this.workspaceId = this.inputVal;
@@ -55,7 +58,12 @@ export class WorkspaceSeComponent implements AfterViewInit {
 
   public load(): void {
     this.loaded = true;
-    this.workspace = window.SE.workspace(this.workspaceId);
-    this.setWorkspace.emit(this.workspace);
+    if (this.isModal) {
+      this.workspace = window.SE.workspace('modal-' + this.workspaceId);
+      this.setWorkspace.emit(this.workspace);
+    } else {
+      this.workspace = window.SE.workspace(this.workspaceId);
+      this.setWorkspace.emit(this.workspace);
+    }
   }
 }
