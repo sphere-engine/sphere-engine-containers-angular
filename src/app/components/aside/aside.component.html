@@ -1,7 +1,7 @@
 <div class="container">
     <div class="workspace-div">
             <ng-container class="workspace-for" *ngFor="let workspace of workspaces; index as i">
-                <lib-workspace-se *ngIf="!showModal" [workspaceId]="workspace.id" [workspaceSize]="workspace.bigSize ? '90vh' : '50vh'" (setWorkspace)="addWorkspace($event)" [ngStyle]="{ 'visibility': showWorkspaceId===i && workspace.show && isWorkspaceWorking ? 'visible' : 'hidden', 'z-index': showWorkspaceId===i ? '99' : '1' }"></lib-workspace-se>
+                <lib-workspace-se [workspaceId]="workspace.id" [workspaceSize]="workspace.bigSize ? '90vh' : '50vh'" (setWorkspace)="addWorkspace($event)" [ngStyle]="{ 'visibility': showWorkspaceId===i && workspace.show && isWorkspaceWorking ? 'visible' : 'hidden', 'z-index': showWorkspaceId===i ? '99' : '1' }"></lib-workspace-se>
             </ng-container>
     </div>
     <div class="aside">
@@ -49,7 +49,7 @@
                 <option *ngFor="let event of events" [value]="event">
                     {{ event }}
             </select> -->
-            <button class="btn-sub" (click)="subscribeEvent()" [disabled]="!isWorkspaceWorking  || isCurrentSubscribed || workspaceId===''">Subscribe</button>
+            <button class="btn-sub" (click)="subscribeEvent()" [disabled]="!isWorkspaceWorking  || isCurrentSubscribed || workspaceId==='' || !isCurrentLoaded ">Subscribe</button>
             <button class="btn-sub" (click)="unsubscribeEvent()" [disabled]="!isWorkspaceWorking  || !isCurrentSubscribed || workspaceId===''">Unsubscribe</button>
             <div class="title">Event Result</div>
             <ul *ngIf="anySubscribed">

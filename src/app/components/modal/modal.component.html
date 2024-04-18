@@ -1,4 +1,4 @@
 <div class="dialog-content" [attr.id]="key">
-    <lib-workspace-se [workspaceId]="workspaceId" (setWorkspace)="setCurrentWorkspace($event)"></lib-workspace-se>
+    <lib-workspace-se [workspaceId]="workspaceId" [isModal]="true" (setWorkspace)="setCurrentWorkspace($event)"></lib-workspace-se>
     <ng-content></ng-content>
 </div>

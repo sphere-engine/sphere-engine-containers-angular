@@ -11,14 +11,19 @@ export class WorkspaceService {
   private currentWorkspaceId: string = '';
   private workspaces: Workspace[] = [];
   private ws: any[] = [];
-  // public eventResponse$ = new Subject<string>();
 
   public getWorkspaceId(): string {
     return this.currentWorkspaceId;
   }
 
   public addWorkspace(workspace: any): void {
-    this.ws.push(workspace);
+    this.workspaces.map((x) => {
+      if (x.id === workspace.id) {
+        x.loaded = true;
+      }
+    });
+    const id = this.workspaces.findIndex((x) => x.id === workspace.id);
+    this.ws[id] = workspace;
   }
 
   public setCurrentWorkspaceId(id: string): void {
@@ -31,6 +36,9 @@ export class WorkspaceService {
 
   public createWorkspace(workspaces: Workspace[]): void {
     this.working$.next(true);
+    workspaces.forEach(() => {
+      this.ws.push(null);
+    });
     this.workspaces = workspaces;
     this.currentWorkspaceId = workspaces[0].id;
   }
@@ -67,7 +75,9 @@ export class WorkspaceService {
     const index = this.workspaces.findIndex(
       (x) => x.id === this.currentWorkspaceId
     );
-    this.ws[index].events.subscribe(event, this.handleChange);
+    if (this.ws[index] !== null) {
+      this.ws[index].events.subscribe(event, this.handleChange);
+    }
   }
 
   public unsubscribe(event: string): void {

@@ -1,16 +1,16 @@
 <form [formGroup]="workspaceIdForm" (ngSubmit)="createWorkspaces()">
-    <div formArrayName="ids"  class="column">
-        <label>Ids: </label>
-        <div *ngFor="let id of getIds().controls; index as i"  class="in-line">
-            <div [formGroup]="id" class="column">
-                <input type="text" formControlName="id">
-              </div>
-          <button type="button" class="button-small" (click)="removeId(i)">x</button>
+  <div formArrayName="ids"  class="column">
+    <label>Ids: </label>
+    <div *ngFor="let id of getIds().controls; index as i"  class="in-line">
+        <div [formGroup]="id" class="column">
+          <input type="text" formControlName="id">
         </div>
-    
-        <button type="button" class="button-small-add" (click)="addId()">+</button>
-      </div>
-      <ng-container *ngIf="workspaceIdForm.status === 'VALID' && workspaceIdForm.controls.ids.length > 0">
-        <ng-content></ng-content>
-      </ng-container>
+      <button type="button" class="button-small" (click)="removeId(i)">x</button>
+    </div>
+
+    <button type="button" class="button-small-add" (click)="addId()">+</button>
+  </div>
+  <ng-container *ngIf="workspaceIdForm.status === 'VALID' && workspaceIdForm.controls.ids.length > 0">
+    <ng-content></ng-content>
+  </ng-container>
 </form>

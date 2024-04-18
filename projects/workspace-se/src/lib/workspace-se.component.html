@@ -8,8 +8,8 @@
     </div>
 </div>
 <div class="ws">
-    <div *ngIf="loaded">{{workspaceId}}</div>
+    <div *ngIf="loaded">{{ isModal ? 'modal: ' + workspaceId : workspaceId}}</div>
     <div class="workspace" id="workspace" [ngStyle]="!loaded ? {'height': 0} : {'height' : workspaceSize}">
-        <div data-id="{{workspaceId}}" [attr.data-workspace]="workspaceId"></div>
+        <div [attr.data-id]="isModal ? 'modal-'+workspaceId : workspaceId" [attr.data-workspace]="workspaceId"></div>
     </div>
 </div>

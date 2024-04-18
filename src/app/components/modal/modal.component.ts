@@ -22,6 +22,7 @@ export class ModalComponent implements OnDestroy {
 
   public setCurrentWorkspace(ws: any): void {
     this.workspace = ws;
+    console.log(ws);
   }
 
   protected workspace: any = null;
