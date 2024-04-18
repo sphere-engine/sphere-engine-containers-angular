@@ -70,3 +70,11 @@ You can change height of workspace with Input() in your component:
 ```
 
 Note: It must be string that can be set as height e.g.: `"100px"`, `"80%"` or `"95vh"`;
+
+## Modal
+
+If you have modal and want to let main workspace still work in the background and create another workspace in modal you can use Input() with name `modal` and change boolean value (deafult is false):
+
+```html
+<lib-workspace-se [modal]="true"></lib-workspace-se>
+```

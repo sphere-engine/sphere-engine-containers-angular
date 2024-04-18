@@ -1,6 +1,6 @@
 {
   "name": "workspace-se",
-  "version": "0.0.6",
+  "version": "0.1.2",
   "description": "Angular workspaceSE initialization with usage",
   "peerDependencies": {
     "@angular/common": "^16.2.0",
